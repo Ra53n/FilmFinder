@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.example.filmfinder.R
 
 class MainFragment : Fragment() {
@@ -23,10 +25,15 @@ class MainFragment : Fragment() {
         return inflater.inflate(R.layout.main_fragment, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        // TODO: Use the ViewModel
+        val observer = Observer<Any> {renderData(it)}
+        viewModel.getData().observe(viewLifecycleOwner,observer)
+    }
+
+    private fun renderData(data: Any) {
+        Toast.makeText(context,"Hello", Toast.LENGTH_SHORT).show()
     }
 
 }
