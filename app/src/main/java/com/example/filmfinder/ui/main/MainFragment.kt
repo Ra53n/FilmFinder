@@ -8,10 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
-import app.moviebase.tmdb.Tmdb3
-import app.moviebase.tmdb.model.TmdbExternalSource
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.databinding.MainFragmentBinding
@@ -50,29 +47,34 @@ class MainFragment : Fragment() {
         viewModel.getData().observe(viewLifecycleOwner, observer)
     }
 
-    private fun setData(movie: Movie){
-
+    private fun setData(movie: Movie) {
+        binding.movieName.text = movie.movieName
+        binding.movieDescription.text = movie.movieDescription
+        binding.movieYear.text = movie.movieYear.toString()
+        binding.movieRating.text = movie.movieRating.toString()
+        binding.movieImage.setImageResource(movie.image)
     }
+
     private fun renderData(appState: AppState) {
-        when(appState){
+        when (appState) {
             is AppState.Success -> {
                 showLoading(false)
                 setData(appState.movie)
             }
-            is AppState.Loading ->{
+            is AppState.Loading -> {
                 showLoading(true)
             }
-            is AppState.Error ->{
+            is AppState.Error -> {
                 showLoading(false)
-                Snackbar.make(binding.main,"Error",Snackbar.LENGTH_INDEFINITE)
-                    .setAction("reload"){viewModel.getFilmFromLocalSource()}
+                Snackbar.make(binding.main, "Error", Snackbar.LENGTH_INDEFINITE)
+                    .setAction("reload") { viewModel.getFilmFromLocalSource() }
                     .show()
             }
         }
         Toast.makeText(context, "Hello!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun showLoading(isShow:Boolean){
+    private fun showLoading(isShow: Boolean) {
         binding.loadingLayout.isVisible = isShow
         binding.mainLayout.isVisible = !isShow
     }
