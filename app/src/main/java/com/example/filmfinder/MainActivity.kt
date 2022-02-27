@@ -2,7 +2,7 @@ package com.example.filmfinder
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.filmfinder.ui.main.MainFragment
+import com.example.filmfinder.view.MainFragment
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.filmfinder.ui.main
+package com.example.filmfinder.view
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -12,6 +12,7 @@ import androidx.lifecycle.Observer
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.databinding.MainFragmentBinding
+import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
