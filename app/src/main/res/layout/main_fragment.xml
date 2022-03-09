@@ -1,75 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.MainFragment">
+    android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/main_layout"
+    <TextView
+        android:id="@+id/popular_movies_textview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:text="Popular movies"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewUp"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/movie_name"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:padding="12dp"
-            android:textAlignment="center"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            tools:text="Movie Name" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainFragmentRecyclerViewUp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/upcoming_movies_textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popular_movies_textview"
+        app:reverseLayout="true" />
 
-        <ImageView
-            android:id="@+id/movie_image"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="6" />
+    <TextView
+        android:id="@+id/upcoming_movies_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:text="Upcoming movies"
+        android:textSize="32dp"
+        app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewDown"
+        app:layout_constraintTop_toBottomOf="@id/mainFragmentRecyclerViewUp" />
 
-        <TextView
-            android:id="@+id/movie_description"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="3"
-            android:padding="10sp"
-            android:textAlignment="viewStart"
-            tools:text="Film description" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/movie_year"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginHorizontal="20sp"
-                android:layout_marginEnd="100sp"
-                android:layout_weight="3"
-                android:gravity="center"
-                android:textAlignment="center"
-                android:textSize="40sp"
-                tools:ignore="NestedWeights"
-                tools:text="2022" />
-
-            <TextView
-                android:id="@+id/movie_rating"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:textSize="40sp"
-                app:drawableLeftCompat="@drawable/ic_baseline_star_rate_50"
-                app:drawableTint="@color/yellow"
-                tools:text="6.9" />
-        </LinearLayout>
-    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainFragmentRecyclerViewDown"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="6dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/upcoming_movies_textview"
+        app:reverseLayout="true" />
 
     <FrameLayout
         android:id="@+id/loadingLayout"
@@ -84,4 +62,4 @@
             android:layout_gravity="center" />
     </FrameLayout>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

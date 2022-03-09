@@ -14,7 +14,6 @@ class MainViewModel(
     private val repository: Repository = RepositoryImpl()
 ) : ViewModel() {
     fun getData(): LiveData<AppState> {
-        getDataFromLocalSource()
         return liveDataToObserver
     }
 
@@ -32,7 +31,7 @@ class MainViewModel(
         } else {
             Thread {
                 Thread.sleep(3000)
-                liveDataToObserver.postValue(AppState.Success(Movie()))
+                liveDataToObserver.postValue(AppState.Success(repository.getPopularFilmFromLocaleStorage()))
             }.start()
         }
     }

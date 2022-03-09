@@ -20,3 +20,23 @@ data class Movie(
     val movieRating: Double = 7.7,
     val image: Int = R.mipmap.encanto_foreground
 )
+
+fun getPopularMovies(): List<Movie> {
+    return listOf(
+        Movie(),
+        Movie(),
+        Movie(),
+        Movie(),
+        Movie()
+    )
+}
+
+fun getUpcomingMovies(): List<Movie> {
+    return listOf(
+        Movie(),
+        Movie(),
+        Movie(),
+        Movie(),
+        Movie()
+    )
+}

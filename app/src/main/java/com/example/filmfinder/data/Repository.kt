@@ -1,6 +1,7 @@
 package com.example.filmfinder.data
 
 interface Repository {
-    fun getFilmFromLocaleStorage(): Movie
+    fun getPopularFilmFromLocaleStorage(): List<Movie>
+    fun getUpcomingFilmFromLocaleStorage(): List<Movie>
     fun getFilmFromServer(): Movie
 }
