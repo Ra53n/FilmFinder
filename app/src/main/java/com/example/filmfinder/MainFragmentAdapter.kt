@@ -33,7 +33,6 @@ class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHol
         fun bind(movie: Movie) {
             itemView.findViewById<TextView>(R.id.main_recycler_item_movie_name_textview).text =
                 movie.movieName
-            itemView.findViewById<ImageView>(R.id.main_recycler_item_movie_image_view).setImageResource(movie.image)
         }
     }
 }
