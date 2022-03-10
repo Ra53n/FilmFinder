@@ -10,18 +10,19 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmfinder.MainFragmentAdapter
+import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.databinding.MainFragmentBinding
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnItemClickListener {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private val adapter = MainFragmentAdapter()
-    private val adapterSecond = MainFragmentAdapter()
+    private val adapter = MainFragmentAdapter(this)
+    private val adapterSecond = MainFragmentAdapter(this)
 
 
     companion object {
@@ -90,6 +91,14 @@ class MainFragment : Fragment() {
     private fun showLoading(isShow: Boolean) {
         binding.loadingLayout.isVisible = isShow
         binding.mainLayout.isVisible = !isShow
+    }
+
+    override fun onItemClick(movie: Movie) {
+        val bundle = Bundle()
+        bundle.putParcelable(BUNDLE_KEY, movie)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.container, DetailsFragment.newInstance(bundle))
+            .addToBackStack("").commit()
     }
 
 }

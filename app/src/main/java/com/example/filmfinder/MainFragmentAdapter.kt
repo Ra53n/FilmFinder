@@ -7,8 +7,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.filmfinder.data.Movie
+import com.example.filmfinder.view.OnItemClickListener
 
-class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
+class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
     private var movieData: List<Movie> = listOf()
     var mSharedPool = RecycledViewPool()
 
@@ -35,6 +36,7 @@ class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHol
         fun bind(movie: Movie) {
             itemView.findViewById<TextView>(R.id.main_recycler_item_movie_name_textview).text =
                 movie.movieName
+            itemView.setOnClickListener { onItemClickListener.onItemClick(movie) }
         }
     }
 }

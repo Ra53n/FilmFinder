@@ -1,7 +1,10 @@
 package com.example.filmfinder.data
 
+import android.os.Parcelable
 import com.example.filmfinder.R
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class Movie(
     val id: Int = 103786,
     val movieName: String = "Encanto",
@@ -17,7 +20,7 @@ data class Movie(
     val movieYear: Int = 2021,
     val movieRating: Double = 7.7,
     val image: Int = R.mipmap.encanto_foreground
-)
+):Parcelable
 
 fun getPopularMovies(): List<Movie> {
     return listOf(
