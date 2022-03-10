@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmfinder.data.AppState
-import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.Repository
 import com.example.filmfinder.data.RepositoryImpl
 import java.lang.RuntimeException
@@ -31,7 +30,12 @@ class MainViewModel(
         } else {
             Thread {
                 Thread.sleep(3000)
-                liveDataToObserver.postValue(AppState.Success(repository.getPopularFilmFromLocaleStorage()))
+                liveDataToObserver.postValue(
+                    AppState.Success(
+                        repository.getPopularFilmFromLocaleStorage(),
+                        repository.getUpcomingFilmFromLocaleStorage()
+                    )
+                )
             }.start()
         }
     }

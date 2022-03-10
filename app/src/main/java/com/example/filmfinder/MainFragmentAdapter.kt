@@ -3,14 +3,14 @@ package com.example.filmfinder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
 import com.example.filmfinder.data.Movie
-
 
 class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
     private var movieData: List<Movie> = listOf()
+    var mSharedPool = RecycledViewPool()
 
     fun setMovie(data: List<Movie>) {
         this.movieData = data
@@ -18,7 +18,9 @@ class MainFragmentAdapter : RecyclerView.Adapter<MainFragmentAdapter.MainViewHol
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainViewHolder {
-        return MainViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.main_recycler_item,parent,false))
+        return MainViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.main_recycler_item, parent, false)
+        )
     }
 
     override fun onBindViewHolder(holder: MainViewHolder, position: Int) {

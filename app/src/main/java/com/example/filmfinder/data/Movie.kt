@@ -1,8 +1,6 @@
 package com.example.filmfinder.data
 
-import android.graphics.drawable.Drawable
 import com.example.filmfinder.R
-import javax.xml.transform.Source
 
 data class Movie(
     val id: Int = 103786,
@@ -33,10 +31,10 @@ fun getPopularMovies(): List<Movie> {
 
 fun getUpcomingMovies(): List<Movie> {
     return listOf(
-        Movie(),
-        Movie(),
-        Movie(),
-        Movie(),
-        Movie()
+        Movie(movieName = "Second rec"),
+        Movie(movieName = "Second rec"),
+        Movie(movieName = "Second rec"),
+        Movie(movieName = "Second rec"),
+        Movie(movieName = "Second rec")
     )
 }

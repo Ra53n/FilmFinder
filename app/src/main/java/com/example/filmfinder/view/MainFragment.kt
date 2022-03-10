@@ -6,8 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +21,7 @@ class MainFragment : Fragment() {
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
     private val adapter = MainFragmentAdapter()
+    private val adapterSecond = MainFragmentAdapter()
 
 
     companion object {
@@ -51,22 +50,30 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
+        bindAdapters()
+
+    }
+
+    private fun bindAdapters() {
         binding.mainFragmentRecyclerViewUp.adapter = this.adapter
         val linearLayoutManager = LinearLayoutManager(context)
         linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
         binding.mainFragmentRecyclerViewUp.layoutManager = linearLayoutManager
+
+        binding.mainFragmentRecyclerViewDown.adapter = this.adapterSecond
+        val linearLayoutManager2 = LinearLayoutManager(context)
+        linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+        binding.mainFragmentRecyclerViewDown.layoutManager = linearLayoutManager2
         viewModel.getFilmFromLocalSource()
     }
 
-    private fun setData(movie: Movie) {
-
-    }
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
                 showLoading(false)
-                adapter.setMovie(appState.movie)
+                adapter.setMovie(appState.popularMovie)
+                adapterSecond.setMovie(appState.upcomingMovie)
             }
             is AppState.Loading -> {
                 showLoading(true)
