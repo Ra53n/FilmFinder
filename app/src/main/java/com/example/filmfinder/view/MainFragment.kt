@@ -1,13 +1,13 @@
 package com.example.filmfinder.view
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmfinder.MainFragmentAdapter
 import com.example.filmfinder.R
@@ -36,8 +36,7 @@ class MainFragment : Fragment(), OnItemClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = MainFragmentBinding.inflate(inflater, container, false)
-        val view = binding.root
-        return view
+        return binding.root
     }
 
     override fun onDestroy() {
@@ -52,20 +51,20 @@ class MainFragment : Fragment(), OnItemClickListener {
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
         bindAdapters()
-
     }
 
     private fun bindAdapters() {
-        binding.mainFragmentRecyclerViewUp.adapter = this.adapter
-        val linearLayoutManager = LinearLayoutManager(context)
-        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
-        binding.mainFragmentRecyclerViewUp.layoutManager = linearLayoutManager
+        with(binding) {
+            mainFragmentRecyclerViewUp.adapter = adapter
+            mainFragmentRecyclerViewUp.layoutManager =
+                LinearLayoutManager(context).apply { orientation = LinearLayoutManager.HORIZONTAL }
 
-        binding.mainFragmentRecyclerViewDown.adapter = this.adapterSecond
-        val linearLayoutManager2 = LinearLayoutManager(context)
-        linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
-        binding.mainFragmentRecyclerViewDown.layoutManager = linearLayoutManager2
-        viewModel.getFilmFromLocalSource()
+            mainFragmentRecyclerViewDown.adapter = adapterSecond
+            mainFragmentRecyclerViewDown.layoutManager =
+                LinearLayoutManager(context).apply { orientation = LinearLayoutManager.HORIZONTAL }
+
+            viewModel.getFilmFromLocalSource()
+        }
     }
 
 
@@ -94,10 +93,11 @@ class MainFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClick(movie: Movie) {
-        val bundle = Bundle()
-        bundle.putParcelable(BUNDLE_KEY, movie)
         requireActivity().supportFragmentManager.beginTransaction()
-            .add(R.id.container, DetailsFragment.newInstance(bundle))
+            .add(
+                R.id.container,
+                DetailsFragment.newInstance(Bundle().apply { putParcelable(BUNDLE_KEY, movie) })
+            )
             .addToBackStack("").commit()
     }
 
