@@ -6,19 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmfinder.MainFragmentAdapter
+import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.databinding.MainFragmentBinding
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(), OnItemClickListener {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+    private val adapter = MainFragmentAdapter(this)
+    private val adapterSecond = MainFragmentAdapter(this)
+
 
     companion object {
         fun newInstance() = MainFragment()
@@ -46,38 +51,54 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         val observer = Observer<AppState> { renderData(it) }
         viewModel.getData().observe(viewLifecycleOwner, observer)
+        bindAdapters()
+
     }
 
-    private fun setData(movie: Movie) {
-        binding.movieName.text = movie.movieName
-        binding.movieDescription.text = movie.movieDescription
-        binding.movieYear.text = movie.movieYear.toString()
-        binding.movieRating.text = movie.movieRating.toString()
-        binding.movieImage.setImageResource(movie.image)
+    private fun bindAdapters() {
+        binding.mainFragmentRecyclerViewUp.adapter = this.adapter
+        val linearLayoutManager = LinearLayoutManager(context)
+        linearLayoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        binding.mainFragmentRecyclerViewUp.layoutManager = linearLayoutManager
+
+        binding.mainFragmentRecyclerViewDown.adapter = this.adapterSecond
+        val linearLayoutManager2 = LinearLayoutManager(context)
+        linearLayoutManager2.orientation = LinearLayoutManager.HORIZONTAL
+        binding.mainFragmentRecyclerViewDown.layoutManager = linearLayoutManager2
+        viewModel.getFilmFromLocalSource()
     }
+
 
     private fun renderData(appState: AppState) {
         when (appState) {
             is AppState.Success -> {
                 showLoading(false)
-                setData(appState.movie)
+                adapter.setMovie(appState.popularMovie)
+                adapterSecond.setMovie(appState.upcomingMovie)
             }
             is AppState.Loading -> {
                 showLoading(true)
             }
             is AppState.Error -> {
                 showLoading(false)
-                Snackbar.make(binding.main, "Error", Snackbar.LENGTH_INDEFINITE)
+                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_INDEFINITE)
                     .setAction("reload") { viewModel.getFilmFromLocalSource() }
                     .show()
             }
         }
-        Toast.makeText(context, "Hello!", Toast.LENGTH_SHORT).show()
     }
 
     private fun showLoading(isShow: Boolean) {
         binding.loadingLayout.isVisible = isShow
         binding.mainLayout.isVisible = !isShow
+    }
+
+    override fun onItemClick(movie: Movie) {
+        val bundle = Bundle()
+        bundle.putParcelable(BUNDLE_KEY, movie)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.container, DetailsFragment.newInstance(bundle))
+            .addToBackStack("").commit()
     }
 
 }
