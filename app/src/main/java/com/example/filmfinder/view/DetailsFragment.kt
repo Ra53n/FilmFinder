@@ -21,8 +21,6 @@ class DetailsFragment : Fragment() {
         fun newInstance(bundle: Bundle) = DetailsFragment().apply { arguments = bundle }
     }
 
-    private lateinit var viewModel: MainViewModel
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

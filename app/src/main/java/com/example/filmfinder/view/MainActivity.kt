@@ -1,8 +1,8 @@
-package com.example.filmfinder
+package com.example.filmfinder.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.filmfinder.view.MainFragment
+import com.example.filmfinder.R
 
 class MainActivity : AppCompatActivity() {
 

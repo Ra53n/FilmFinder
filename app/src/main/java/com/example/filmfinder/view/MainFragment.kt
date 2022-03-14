@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.filmfinder.MainFragmentAdapter
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
@@ -29,7 +28,7 @@ class MainFragment : Fragment(), OnItemClickListener {
         fun newInstance() = MainFragment()
     }
 
-    private lateinit var viewModel: MainViewModel
+    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,22 +46,21 @@ class MainFragment : Fragment(), OnItemClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        val observer = Observer<AppState> { renderData(it) }
-        viewModel.getData().observe(viewLifecycleOwner, observer)
+        viewModel.getData().observe(viewLifecycleOwner, (Observer { renderData(it) }))
         bindAdapters()
     }
 
     private fun bindAdapters() {
         with(binding) {
+            val linearLayout = {
+                LinearLayoutManager(context).apply {
+                    orientation = LinearLayoutManager.HORIZONTAL
+                }
+            }
             mainFragmentRecyclerViewUp.adapter = adapter
-            mainFragmentRecyclerViewUp.layoutManager =
-                LinearLayoutManager(context).apply { orientation = LinearLayoutManager.HORIZONTAL }
-
+            mainFragmentRecyclerViewUp.layoutManager = linearLayout()
             mainFragmentRecyclerViewDown.adapter = adapterSecond
-            mainFragmentRecyclerViewDown.layoutManager =
-                LinearLayoutManager(context).apply { orientation = LinearLayoutManager.HORIZONTAL }
-
+            mainFragmentRecyclerViewDown.layoutManager = linearLayout()
             viewModel.getFilmFromLocalSource()
         }
     }
