@@ -72,15 +72,16 @@ class MainFragment : Fragment(), OnItemClickListener {
                 showLoading(false)
                 adapter.setMovie(appState.popularMovie)
                 adapterSecond.setMovie(appState.upcomingMovie)
+                binding.root.snackBarWithoutAction(R.string.success, Snackbar.LENGTH_SHORT)
             }
             is AppState.Loading -> {
                 showLoading(true)
             }
             is AppState.Error -> {
                 showLoading(false)
-                Snackbar.make(binding.root, "Error", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("reload") { viewModel.getFilmFromLocalSource() }
-                    .show()
+                binding.root.snackBarWithAction(
+                    R.string.error, Snackbar.LENGTH_INDEFINITE, "reload"
+                ) { viewModel.getFilmFromLocalSource() }
             }
         }
     }
