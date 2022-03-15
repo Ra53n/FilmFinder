@@ -1,5 +1,8 @@
 package com.example.filmfinder.view
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -63,6 +66,14 @@ class DetailsFragment : Fragment(), MovieLoader.OnMovieLoaded {
     }
 
     override fun onFailed() {
-        //TODO
+        AlertDialog.Builder(context).apply {
+            setMessage(
+                "Something gone wrong!"
+            )
+
+            setNegativeButton(
+                "Back"
+            ) { _, _ -> parentFragmentManager.popBackStack() }
+        }.create().show()
     }
 }
