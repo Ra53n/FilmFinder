@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.filmfinder.data.Movie
+import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.databinding.DetailsFragmentBinding
+import com.example.filmfinder.utils.MovieLoader
 import com.example.filmfinder.viewModel.MainViewModel
+import com.google.android.material.snackbar.Snackbar
 
 const val BUNDLE_KEY = "KEY"
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), MovieLoader.OnMovieLoaded {
 
 
     private var _binding: DetailsFragmentBinding? = null
@@ -36,16 +39,25 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.getParcelable<Movie>(BUNDLE_KEY)?.let { setData(it) }
+        arguments?.getParcelable<Movie>(BUNDLE_KEY)?.let {
+            MovieLoader(this).loadMovie(it.id)
+        }
     }
 
-    private fun setData(movie: Movie) {
+    private fun setData(movieDTO: MovieDTO) {
         with(binding) {
-            movieName.text = movie.movieName
-            movieDescription.text = movie.movieDescription
-            movieYear.text = movie.movieYear.toString()
-            movieRating.text = movie.movieRating.toString()
-            movieImage.setImageResource(movie.image)
+            movieName.text = movieDTO.title
+            movieDescription.text = movieDTO.overview
+            movieYear.text = movieDTO.releaseDate.substring(0,4)
+            movieRating.text = movieDTO.voteAverage.toString()
         }
+    }
+
+    override fun onLoaded(movieDTO: MovieDTO) {
+        setData(movieDTO)
+    }
+
+    override fun onFailed() {
+        //TODO
     }
 }
