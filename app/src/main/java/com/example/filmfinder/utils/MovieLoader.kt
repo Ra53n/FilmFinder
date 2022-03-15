@@ -2,6 +2,7 @@ package com.example.filmfinder.utils
 
 import android.os.Handler
 import android.os.Looper
+import com.example.filmfinder.BuildConfig
 import com.example.filmfinder.data.MovieDTO
 import com.google.gson.Gson
 import java.io.BufferedReader
@@ -18,7 +19,7 @@ class MovieLoader(private val onMovieLoaded: OnMovieLoaded) {
         try {
             Thread {
                 val url =
-                    URL("https://api.themoviedb.org/3/movie/$id?api_key=8d59fe8d268e9cac0609c1c4b077a9fd&language=ru")
+                    URL("https://api.themoviedb.org/3/movie/$id?api_key=${BuildConfig.MOVIE_API_KEY}&language=ru")
                 httpsURLConnection =
                     (url.openConnection() as HttpsURLConnection).apply {
                         requestMethod = "GET"
