@@ -11,6 +11,7 @@ import com.example.filmfinder.databinding.DetailsFragmentBinding
 import com.example.filmfinder.utils.MovieLoader
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.squareup.picasso.Picasso
 
 const val BUNDLE_KEY = "KEY"
 
@@ -48,8 +49,12 @@ class DetailsFragment : Fragment(), MovieLoader.OnMovieLoaded {
         with(binding) {
             movieName.text = movieDTO.title
             movieDescription.text = movieDTO.overview
-            movieYear.text = movieDTO.releaseDate.substring(0,4)
-            movieRating.text = movieDTO.voteAverage.toString()
+            movieYear.text = movieDTO.releaseDate.substring(0, 4)
+            movieRating.text =
+                if (movieDTO.voteAverage != 0.0) movieDTO.voteAverage.toString() else "N/A"
+            Picasso.with(context)
+                .load("https://www.themoviedb.org/t/p/original" + movieDTO.posterPath)
+                .into(movieImage)
         }
     }
 
