@@ -1,4 +1,4 @@
-package com.example.filmfinder.view
+package com.example.filmfinder.view.main
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmfinder.R
 import com.example.filmfinder.data.Movie
+import com.example.filmfinder.view.OnItemClickListener
 
 class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {

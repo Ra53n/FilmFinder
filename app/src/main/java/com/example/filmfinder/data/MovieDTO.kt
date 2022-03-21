@@ -1,7 +1,10 @@
 package com.example.filmfinder.data
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class MovieDTO(
     val adult: Boolean,
 
@@ -9,11 +12,11 @@ data class MovieDTO(
     val backdropPath: String,
 
     @SerializedName("belongs_to_collection")
-    val belongsToCollection: BelongsToCollection,
+    val belongsToCollection: BelongsToCollection?,
 
-    val budget: Long,
-    val genres: List<Genre>,
-    val homepage: String,
+    val budget: Long?,
+    val genres: List<Genre>?,
+    val homepage: String?,
     val id: Long,
 
     @SerializedName("imdb_id")
@@ -56,24 +59,27 @@ data class MovieDTO(
 
     @SerializedName("vote_count")
     val voteCount: Long
-)
+) : Parcelable
 
+@Parcelize
 data class BelongsToCollection(
     val id: Long,
     val name: String,
 
     @SerializedName("poster_path")
-    val posterPath: Any? = null,
+    val posterPath: String?,
 
     @SerializedName("backdrop_path")
-    val backdropPath: Any? = null
-)
+    val backdropPath: String?
+) : Parcelable
 
+@Parcelize
 data class Genre(
     val id: Long,
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class ProductionCompany(
     val id: Long,
 
@@ -84,15 +90,17 @@ data class ProductionCompany(
 
     @SerializedName("origin_country")
     val originCountry: String
-)
+) : Parcelable
 
+@Parcelize
 data class ProductionCountry(
     @SerializedName("iso_3166_1")
     val iso3166_1: String,
 
     val name: String
-)
+) : Parcelable
 
+@Parcelize
 data class SpokenLanguage(
     @SerializedName("english_name")
     val englishName: String,
@@ -101,4 +109,4 @@ data class SpokenLanguage(
     val iso639_1: String,
 
     val name: String
-)
+) : Parcelable

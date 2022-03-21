@@ -1,6 +1,5 @@
-package com.example.filmfinder.view
+package com.example.filmfinder.view.main
 
-import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -17,6 +16,11 @@ import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.databinding.MainFragmentBinding
+import com.example.filmfinder.view.OnItemClickListener
+import com.example.filmfinder.view.details.BUNDLE_KEY
+import com.example.filmfinder.view.details.DetailsFragment
+import com.example.filmfinder.view.snackBarWithAction
+import com.example.filmfinder.view.snackBarWithoutAction
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
