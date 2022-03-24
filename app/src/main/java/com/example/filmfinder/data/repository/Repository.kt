@@ -1,9 +1,12 @@
 package com.example.filmfinder.data.repository
 
 import com.example.filmfinder.data.Movie
+import com.example.filmfinder.data.MovieDTO
+import com.example.filmfinder.data.MovieList
+import retrofit2.Callback
 
 interface Repository {
-    fun getPopularFilmFromLocaleStorage(): List<Movie>
-    fun getUpcomingFilmFromLocaleStorage(): List<Movie>
+    fun getPopularFilmFromService(callback:Callback<MovieList>)
+    fun getUpcomingFilmFromService(callback:Callback<MovieList>)
     fun getFilmFromServer(): Movie
 }

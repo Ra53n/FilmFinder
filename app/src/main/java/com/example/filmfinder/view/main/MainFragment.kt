@@ -15,6 +15,8 @@ import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
+import com.example.filmfinder.data.MovieDTO
+import com.example.filmfinder.data.MovieListItem
 import com.example.filmfinder.databinding.MainFragmentBinding
 import com.example.filmfinder.view.OnItemClickListener
 import com.example.filmfinder.view.details.BUNDLE_KEY
@@ -82,11 +84,15 @@ class MainFragment : Fragment(), OnItemClickListener {
 
     private fun renderData(appState: AppState) {
         when (appState) {
-            is AppState.Success -> {
+            is AppState.SuccessPopularMovies -> {
                 showLoading(false)
-                adapter.setMovie(appState.popularMovie)
-                adapterSecond.setMovie(appState.upcomingMovie)
-                binding.root.snackBarWithoutAction(R.string.success, Snackbar.LENGTH_SHORT)
+                Thread.sleep(1000)
+                adapter.setMovie(appState.popularMovies.results)
+            }
+            is AppState.SuccessUpcomingMovies -> {
+                showLoading(false)
+                Thread.sleep(1000)
+                adapterSecond.setMovie(appState.upcomingMovies.results)
             }
             is AppState.Loading -> {
                 showLoading(true)
@@ -110,7 +116,7 @@ class MainFragment : Fragment(), OnItemClickListener {
         binding.mainLayout.isVisible = !isShow
     }
 
-    override fun onItemClick(movie: Movie) {
+    override fun onItemClick(movie: MovieListItem) {
         requireActivity().supportFragmentManager.beginTransaction()
             .add(
                 R.id.container,

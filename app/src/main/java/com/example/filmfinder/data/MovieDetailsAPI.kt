@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface MovieDetailsAPI {
     @GET("/3/movie/{movie_id}?")
     fun getMovie(
-        @Path("movie_id") id: Int,
+        @Path("movie_id") id: Long,
         @Query(API_KEY) token: String,
         @Query("language") language: String
     ): Call<MovieDTO>

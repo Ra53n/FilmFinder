@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class DetailsRepositoryImpl : DetailsRepository {
-    override fun getMovieFromServer(id: Int,callback:Callback<MovieDTO>) {
+    override fun getMovieFromServer(id: Long,callback:Callback<MovieDTO>) {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://api.themoviedb.org")
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))

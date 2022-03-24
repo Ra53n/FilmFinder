@@ -15,7 +15,7 @@ class DetailsViewModel(
     private val repository: DetailsRepository = DetailsRepositoryImpl()
 ) : ViewModel() {
     fun getData() = liveDataToObserver
-    fun getMoveFromRemoteSource(id: Int) {
+    fun getMoveFromRemoteSource(id: Long) {
         liveDataToObserver.postValue(AppState.Loading)
         repository.getMovieFromServer(id, callback)
     }
