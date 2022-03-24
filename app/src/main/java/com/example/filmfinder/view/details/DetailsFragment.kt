@@ -1,18 +1,18 @@
 package com.example.filmfinder.view.details
 
 import android.app.AlertDialog
-import android.content.BroadcastReceiver
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.databinding.DetailsFragmentBinding
+import com.example.filmfinder.viewModel.DetailsViewModel
 import com.squareup.picasso.Picasso
 
 const val BUNDLE_KEY = "KEY"
@@ -23,20 +23,10 @@ class DetailsFragment : Fragment() {
 
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: DetailsViewModel by lazy { ViewModelProvider(this).get(DetailsViewModel::class.java) }
 
     companion object {
         fun newInstance(bundle: Bundle) = DetailsFragment().apply { arguments = bundle }
-    }
-
-    private val receiver: BroadcastReceiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val movieDTO: MovieDTO? = intent?.getParcelableExtra<MovieDTO>(BUNDLE_KEY_MOVIE)
-            if (movieDTO != null) {
-                setData(movieDTO)
-            } else {
-                onFailed()
-            }
-        }
     }
 
     override fun onCreateView(
@@ -50,17 +40,14 @@ class DetailsFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
-        requireActivity().unregisterReceiver(receiver)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getData().observe(viewLifecycleOwner, (Observer<AppState> { renderData(it)}))
         arguments?.getParcelable<Movie>(BUNDLE_KEY)?.let {
-            val intent = Intent(requireActivity(), DetailsService::class.java)
-            intent.putExtra("EXTRA", it.id)
-            requireActivity().startService(intent)
+            viewModel.getMoveFromRemoteSource(it.id)
         }
-        requireActivity().registerReceiver(receiver, IntentFilter(DETAILS_FRAGMENT_FILTER))
     }
 
     private fun setData(movieDTO: MovieDTO) {
@@ -73,6 +60,21 @@ class DetailsFragment : Fragment() {
             Picasso.with(context)
                 .load("https://www.themoviedb.org/t/p/original" + movieDTO.posterPath)
                 .into(movieImage)
+        }
+    }
+
+    private fun renderData(appState: AppState) {
+        when (appState) {
+            is AppState.DetailsSuccess -> {
+                binding.detailsLoadingLayout.visibility = View.GONE
+                setData(appState.movieDTO)
+            }
+            is AppState.Loading -> {
+                binding.detailsLoadingLayout.visibility = View.VISIBLE
+            }
+            is AppState.Error -> {
+                onFailed()
+            }
         }
     }
 

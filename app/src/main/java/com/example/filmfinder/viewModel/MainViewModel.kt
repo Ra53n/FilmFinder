@@ -3,8 +3,8 @@ package com.example.filmfinder.viewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmfinder.data.AppState
-import com.example.filmfinder.data.Repository
-import com.example.filmfinder.data.RepositoryImpl
+import com.example.filmfinder.data.repository.Repository
+import com.example.filmfinder.data.repository.RepositoryImpl
 
 class MainViewModel(
     private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData(),

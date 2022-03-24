@@ -72,5 +72,17 @@
                 tools:text="6.9" />
         </LinearLayout>
     </LinearLayout>
+    <FrameLayout
+        android:id="@+id/details_loadingLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 </FrameLayout>

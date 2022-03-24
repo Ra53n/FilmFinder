@@ -1,4 +1,6 @@
-package com.example.filmfinder.data
+package com.example.filmfinder.data.repository
+
+import com.example.filmfinder.data.Movie
 
 interface Repository {
     fun getPopularFilmFromLocaleStorage(): List<Movie>
