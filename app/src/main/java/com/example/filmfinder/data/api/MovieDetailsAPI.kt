@@ -1,6 +1,7 @@
-package com.example.filmfinder.data
+package com.example.filmfinder.data.api
 
 import app.moviebase.tmdb.TmdbUrlParameter.API_KEY
+import com.example.filmfinder.data.MovieDTO
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

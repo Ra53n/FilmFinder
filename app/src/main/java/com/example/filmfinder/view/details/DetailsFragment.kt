@@ -43,7 +43,7 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData().observe(viewLifecycleOwner, (Observer<AppState> { renderData(it)}))
+        viewModel.getData().observe(viewLifecycleOwner, (Observer<AppState> { renderData(it) }))
         arguments?.getParcelable<MovieDTO>(BUNDLE_KEY)?.let {
             viewModel.getMoveFromRemoteSource(it.id)
         }

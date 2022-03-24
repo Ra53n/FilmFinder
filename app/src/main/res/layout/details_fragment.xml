@@ -72,6 +72,7 @@
                 tools:text="6.9" />
         </LinearLayout>
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/details_loadingLayout"
         android:layout_width="match_parent"

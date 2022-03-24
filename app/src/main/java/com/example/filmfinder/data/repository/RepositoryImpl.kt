@@ -1,9 +1,8 @@
 package com.example.filmfinder.data.repository
 
 import com.example.filmfinder.BuildConfig
-import com.example.filmfinder.data.Movie
-import com.example.filmfinder.data.MovieList
-import com.example.filmfinder.data.MovieListsApi
+import com.example.filmfinder.data.MovieListDTO
+import com.example.filmfinder.data.api.MovieListsApi
 import com.google.gson.GsonBuilder
 import retrofit2.Callback
 import retrofit2.Retrofit
@@ -15,14 +14,13 @@ class RepositoryImpl : Repository {
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .build().create(MovieListsApi::class.java)
 
-    override fun getPopularFilmFromService(callback: Callback<MovieList>) {
-        retrofit.getPopularMovies(BuildConfig.MOVIE_API_KEY,"ru",1).enqueue(callback)
+    override fun getPopularFilmFromService(callback: Callback<MovieListDTO>) {
+        retrofit.getPopularMovies(BuildConfig.MOVIE_API_KEY, "ru", 1).enqueue(callback)
     }
 
-    override fun getUpcomingFilmFromService(callback: Callback<MovieList>) {
-        retrofit.getUpcomingMovies(BuildConfig.MOVIE_API_KEY,"ru",1).enqueue(callback)
+    override fun getUpcomingFilmFromService(callback: Callback<MovieListDTO>) {
+        retrofit.getUpcomingMovies(BuildConfig.MOVIE_API_KEY, "ru", 1).enqueue(callback)
     }
 
-    override fun getFilmFromServer() = Movie()
 
 }

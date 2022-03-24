@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class MovieList(
+data class MovieListDTO(
     val page: Long,
     val results: List<MovieDTO>,
 
