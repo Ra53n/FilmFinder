@@ -35,15 +35,13 @@ class MovieLoader(private val onMovieLoaded: OnMovieLoaded) {
                 }
             }.start()
         } finally {
-            Thread.sleep(250)
+            Thread.sleep(350)
             httpsURLConnection.disconnect()
         }
-
-
     }
 
     interface OnMovieLoaded {
         fun onLoaded(movieDTO: MovieDTO)
-        fun onFailed() //TODO
+        fun onFailed()
     }
 }

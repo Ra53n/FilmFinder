@@ -1,5 +1,7 @@
-package com.example.filmfinder.view
+package com.example.filmfinder.view.main
 
+import android.content.IntentFilter
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,10 +11,16 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.databinding.MainFragmentBinding
+import com.example.filmfinder.view.OnItemClickListener
+import com.example.filmfinder.view.details.BUNDLE_KEY
+import com.example.filmfinder.view.details.DetailsFragment
+import com.example.filmfinder.view.snackBarWithAction
+import com.example.filmfinder.view.snackBarWithoutAction
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -22,6 +30,7 @@ class MainFragment : Fragment(), OnItemClickListener {
     private val binding get() = _binding!!
     private val adapter = MainFragmentAdapter(this)
     private val adapterSecond = MainFragmentAdapter(this)
+    private val connectivityActionBroadcastReceiver = ConnectivityActionBroadcastReceiver()
 
 
     companion object {
@@ -48,6 +57,11 @@ class MainFragment : Fragment(), OnItemClickListener {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, (Observer { renderData(it) }))
         bindAdapters()
+        requireActivity().registerReceiver(
+            connectivityActionBroadcastReceiver, IntentFilter(
+                ConnectivityManager.CONNECTIVITY_ACTION
+            )
+        )
     }
 
     private fun bindAdapters() {
@@ -84,6 +98,11 @@ class MainFragment : Fragment(), OnItemClickListener {
                 ) { viewModel.getFilmFromLocalSource() }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        requireActivity().unregisterReceiver(connectivityActionBroadcastReceiver)
     }
 
     private fun showLoading(isShow: Boolean) {
