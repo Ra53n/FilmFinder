@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import coil.api.load
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.databinding.DetailsFragmentBinding
@@ -56,9 +57,7 @@ class DetailsFragment : Fragment() {
             movieYear.text = movieDTO.releaseDate.substring(0, 4)
             movieRating.text =
                 if (movieDTO.voteAverage != 0.0) movieDTO.voteAverage.toString() else "N/A"
-            Picasso.with(context)
-                .load("https://www.themoviedb.org/t/p/original" + movieDTO.posterPath)
-                .into(movieImage)
+            movieImage.load("https://www.themoviedb.org/t/p/original" + movieDTO.posterPath)
         }
     }
 

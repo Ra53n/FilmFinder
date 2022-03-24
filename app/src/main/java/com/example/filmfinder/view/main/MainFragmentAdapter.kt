@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import coil.api.load
 import com.example.filmfinder.R
 import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.view.OnItemClickListener
@@ -40,9 +41,8 @@ class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) :
                     movie.releaseDate.substring(0, 4)
                 findViewById<TextView>(R.id.main_recycler_item_movie_rating).text =
                     if (movie.voteAverage != 0.0) movie.voteAverage.toString() else "N/A"
-                Picasso.with(context)
-                    .load("https://www.themoviedb.org/t/p/original" + movie.posterPath)
-                    .into(findViewById<ImageView>(R.id.main_recycler_item_movie_image_view))
+
+                findViewById<ImageView>(R.id.main_recycler_item_movie_image_view).load("https://www.themoviedb.org/t/p/original" + movie.posterPath)
                 setOnClickListener { onItemClickListener.onItemClick(movie) }
             }
         }
