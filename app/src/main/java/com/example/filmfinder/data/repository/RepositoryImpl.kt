@@ -1,7 +1,9 @@
 package com.example.filmfinder.data.repository
 
 import com.example.filmfinder.BuildConfig
-import com.example.filmfinder.data.*
+import com.example.filmfinder.data.Movie
+import com.example.filmfinder.data.MovieList
+import com.example.filmfinder.data.MovieListsApi
 import com.google.gson.GsonBuilder
 import retrofit2.Callback
 import retrofit2.Retrofit

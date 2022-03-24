@@ -14,15 +14,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
-import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.MovieDTO
-import com.example.filmfinder.data.MovieListItem
 import com.example.filmfinder.databinding.MainFragmentBinding
 import com.example.filmfinder.view.OnItemClickListener
 import com.example.filmfinder.view.details.BUNDLE_KEY
 import com.example.filmfinder.view.details.DetailsFragment
 import com.example.filmfinder.view.snackBarWithAction
-import com.example.filmfinder.view.snackBarWithoutAction
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -116,7 +113,7 @@ class MainFragment : Fragment(), OnItemClickListener {
         binding.mainLayout.isVisible = !isShow
     }
 
-    override fun onItemClick(movie: MovieListItem) {
+    override fun onItemClick(movie: MovieDTO) {
         requireActivity().supportFragmentManager.beginTransaction()
             .add(
                 R.id.container,

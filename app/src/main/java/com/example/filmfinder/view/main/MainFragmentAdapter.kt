@@ -7,17 +7,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.filmfinder.R
-import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.MovieDTO
-import com.example.filmfinder.data.MovieListItem
 import com.example.filmfinder.view.OnItemClickListener
 import com.squareup.picasso.Picasso
 
 class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {
-    private var movieData: List<MovieListItem> = listOf()
+    private var movieData: List<MovieDTO> = listOf()
 
-    fun setMovie(data: List<MovieListItem>) {
+    fun setMovie(data: List<MovieDTO>) {
         this.movieData = data
         notifyDataSetChanged()
     }
@@ -34,7 +32,7 @@ class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) :
 
 
     inner class MainViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(movie: MovieListItem) {
+        fun bind(movie: MovieDTO) {
             with(itemView) {
                 findViewById<TextView>(R.id.main_recycler_item_movie_name_textview).text =
                     movie.title

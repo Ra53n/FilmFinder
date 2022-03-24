@@ -1,7 +1,6 @@
 package com.example.filmfinder.data.repository
 
 import com.example.filmfinder.data.Movie
-import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.data.MovieList
 import retrofit2.Callback
 

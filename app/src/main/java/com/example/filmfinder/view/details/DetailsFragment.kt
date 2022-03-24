@@ -9,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.filmfinder.data.AppState
-import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.MovieDTO
-import com.example.filmfinder.data.MovieListItem
 import com.example.filmfinder.databinding.DetailsFragmentBinding
 import com.example.filmfinder.viewModel.DetailsViewModel
 import com.squareup.picasso.Picasso
@@ -46,7 +44,7 @@ class DetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, (Observer<AppState> { renderData(it)}))
-        arguments?.getParcelable<MovieListItem>(BUNDLE_KEY)?.let {
+        arguments?.getParcelable<MovieDTO>(BUNDLE_KEY)?.let {
             viewModel.getMoveFromRemoteSource(it.id)
         }
     }
