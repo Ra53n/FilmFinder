@@ -16,10 +16,17 @@ class MainViewModel(
 ) : ViewModel() {
     fun getData() = liveDataToObserver
 
-    fun getFilmFromLocalSource() = getMoviesFromRemoteSource()
+    fun getMoviesFromServer() = getMoviesFromRemoteSource()
 
-    fun getMoviesFromRemoteSource() {
-        repository.getPopularFilmFromService(callbackPopular)
+    fun getMoviesWitchAdultFromServer() = getMoviesAdultFromRemoteSource()
+
+    private fun getMoviesFromRemoteSource() {
+        repository.getPopularFilmFromService(false, callbackPopular)
+        repository.getUpcomingFilmFromService(callbackUpcoming)
+    }
+
+    private fun getMoviesAdultFromRemoteSource() {
+        repository.getPopularFilmFromService(true, callbackPopular)
         repository.getUpcomingFilmFromService(callbackUpcoming)
     }
 
@@ -49,6 +56,8 @@ class MainViewModel(
         override fun onResponse(call: Call<MovieListDTO>, response: Response<MovieListDTO>) {
             if (response.isSuccessful) {
                 val popularMovies = response.body()
+                liveDataToObserver.postValue(AppState.Loading)
+                Thread.sleep(1000)
                 liveDataToObserver.postValue(popularMovies?.let { AppState.SuccessPopularMovies(it) })
             }
         }

@@ -14,13 +14,12 @@ class RepositoryImpl : Repository {
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))
         .build().create(MovieListsApi::class.java)
 
-    override fun getPopularFilmFromService(callback: Callback<MovieListDTO>) {
-        retrofit.getPopularMovies(BuildConfig.MOVIE_API_KEY, "ru", 1).enqueue(callback)
+    override fun getPopularFilmFromService(adult: Boolean, callback: Callback<MovieListDTO>) {
+        retrofit.getPopularMovies(BuildConfig.MOVIE_API_KEY, "popularity.desc", adult, "ru", 1)
+            .enqueue(callback)
     }
 
     override fun getUpcomingFilmFromService(callback: Callback<MovieListDTO>) {
         retrofit.getUpcomingMovies(BuildConfig.MOVIE_API_KEY, "ru", 1).enqueue(callback)
     }
-
-
 }

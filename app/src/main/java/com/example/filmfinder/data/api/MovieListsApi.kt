@@ -7,9 +7,11 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MovieListsApi {
-    @GET("/3/movie/popular?")
+    @GET("/3/discover/movie?")
     fun getPopularMovies(
         @Query(TmdbUrlParameter.API_KEY) token: String,
+        @Query("sort_by") sortBy: String,
+        @Query("include_adult") includeAdult: Boolean,
         @Query("language") language: String,
         @Query("page") page: Int
     ): Call<MovieListDTO>

@@ -1,5 +1,6 @@
 package com.example.filmfinder.view.main
 
+import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
@@ -23,6 +24,8 @@ import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
+const val SWITCH_IS_CHECKED = "SWITCH_IS_CHECKED"
+
 class MainFragment : Fragment(), OnItemClickListener {
 
     private var _binding: MainFragmentBinding? = null
@@ -30,6 +33,9 @@ class MainFragment : Fragment(), OnItemClickListener {
     private val adapter = MainFragmentAdapter(this)
     private val adapterSecond = MainFragmentAdapter(this)
     private val connectivityActionBroadcastReceiver = ConnectivityActionBroadcastReceiver()
+    private val isAdult: Boolean by lazy {
+        requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(SWITCH_IS_CHECKED, false)
+    }
 
 
     companion object {
@@ -55,12 +61,41 @@ class MainFragment : Fragment(), OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, (Observer { renderData(it) }))
-        bindAdapters()
         requireActivity().registerReceiver(
             connectivityActionBroadcastReceiver, IntentFilter(
                 ConnectivityManager.CONNECTIVITY_ACTION
             )
         )
+        bindViews()
+        loadContent()
+    }
+
+    private fun loadContent() {
+        if (isAdult) {
+            viewModel.getMoviesWitchAdultFromServer()
+        } else {
+            viewModel.getMoviesFromServer()
+        }
+    }
+
+    private fun bindViews() {
+        binding.mainFragmentSwitchAdult.isChecked = isAdult
+        bindAdapters()
+        bindSwitchAdultClickListener()
+    }
+
+    private fun bindSwitchAdultClickListener() {
+        binding.mainFragmentSwitchAdult.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                viewModel.getMoviesWitchAdultFromServer()
+            } else {
+                viewModel.getMoviesFromServer()
+            }
+            val sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE)
+            sharedPreferences?.let {
+                it.edit().apply { putBoolean("SWITCH_IS_CHECKED", isChecked) }.apply()
+            }
+        }
     }
 
     private fun bindAdapters() {
@@ -74,7 +109,6 @@ class MainFragment : Fragment(), OnItemClickListener {
             mainFragmentRecyclerViewUp.layoutManager = linearLayout()
             mainFragmentRecyclerViewDown.adapter = adapterSecond
             mainFragmentRecyclerViewDown.layoutManager = linearLayout()
-            viewModel.getFilmFromLocalSource()
         }
     }
 
@@ -83,12 +117,10 @@ class MainFragment : Fragment(), OnItemClickListener {
         when (appState) {
             is AppState.SuccessPopularMovies -> {
                 showLoading(false)
-                Thread.sleep(1000)
                 adapter.setMovie(appState.popularMovies.results)
             }
             is AppState.SuccessUpcomingMovies -> {
                 showLoading(false)
-                Thread.sleep(1000)
                 adapterSecond.setMovie(appState.upcomingMovies.results)
             }
             is AppState.Loading -> {
@@ -98,7 +130,7 @@ class MainFragment : Fragment(), OnItemClickListener {
                 showLoading(false)
                 binding.root.snackBarWithAction(
                     R.string.error, Snackbar.LENGTH_INDEFINITE, "reload"
-                ) { viewModel.getFilmFromLocalSource() }
+                ) { viewModel.getMoviesFromServer() }
             }
         }
     }
