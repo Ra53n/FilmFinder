@@ -1,7 +1,7 @@
 package com.example.filmfinder.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.example.filmfinder.R
 import com.example.filmfinder.view.main.MainFragment
 

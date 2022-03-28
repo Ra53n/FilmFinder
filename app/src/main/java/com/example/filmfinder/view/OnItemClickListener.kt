@@ -1,7 +1,7 @@
 package com.example.filmfinder.view
 
-import com.example.filmfinder.data.Movie
+import com.example.filmfinder.data.MovieDTO
 
 interface OnItemClickListener {
-    fun onItemClick(movie: Movie)
+    fun onItemClick(movie: MovieDTO)
 }
