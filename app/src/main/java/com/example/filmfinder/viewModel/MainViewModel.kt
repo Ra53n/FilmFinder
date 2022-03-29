@@ -4,15 +4,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.MovieListDTO
-import com.example.filmfinder.data.repository.Repository
-import com.example.filmfinder.data.repository.RepositoryImpl
+import com.example.filmfinder.data.repository.RepositoryRemote
+import com.example.filmfinder.data.repository.RepositoryRemoteImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class MainViewModel(
     private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
-    private val repository: Repository = RepositoryImpl()
+    private val repositoryRemote: RepositoryRemote = RepositoryRemoteImpl()
 ) : ViewModel() {
     fun getData() = liveDataToObserver
 
@@ -21,36 +21,15 @@ class MainViewModel(
     fun getMoviesWitchAdultFromServer() = getMoviesAdultFromRemoteSource()
 
     private fun getMoviesFromRemoteSource() {
-        repository.getPopularFilmFromService(false, callbackPopular)
-        repository.getUpcomingFilmFromService(callbackUpcoming)
+        repositoryRemote.getPopularFilmFromService(false, callbackPopular)
+        repositoryRemote.getUpcomingFilmFromService(callbackUpcoming)
     }
 
     private fun getMoviesAdultFromRemoteSource() {
-        repository.getPopularFilmFromService(true, callbackPopular)
-        repository.getUpcomingFilmFromService(callbackUpcoming)
+        repositoryRemote.getPopularFilmFromService(true, callbackUpcoming)
+        repositoryRemote.getUpcomingFilmFromService(callbackPopular)
     }
 
-    private fun getDataFromLocalSource() {
-        with(liveDataToObserver) {
-            postValue(AppState.Loading)
-            if (Math.random() * 10 >= 9) {
-                Thread {
-                    Thread.sleep(3000)
-                    postValue(AppState.Error(RuntimeException()))
-                }.start()
-            } else {
-                Thread {
-                    Thread.sleep(3000)
-//                    postValue(
-//                        AppState.Success(
-//                            repository.getPopularFilmFromService(),
-//                            repository.getUpcomingFilmFromService()
-//                        )
-//                    )
-                }.start()
-            }
-        }
-    }
 
     private val callbackPopular = object : Callback<MovieListDTO> {
         override fun onResponse(call: Call<MovieListDTO>, response: Response<MovieListDTO>) {

@@ -5,15 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.SwitchCompat
-        android:id="@+id/main_fragment__switch_adult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/popular_movies_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="Adult mode "/>
-
     <TextView
         android:id="@+id/popular_movies_textview"
         android:layout_width="match_parent"
@@ -22,7 +13,7 @@
         android:text="Popular movies"
         android:textSize="32dp"
         app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewUp"
-        app:layout_constraintTop_toBottomOf="@id/main_fragment__switch_adult" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/mainFragmentRecyclerViewUp"

@@ -8,7 +8,7 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RepositoryImpl : Repository {
+class RepositoryRemoteImpl : RepositoryRemote {
     private val retrofit = Retrofit.Builder()
         .baseUrl("https://api.themoviedb.org")
         .addConverterFactory(GsonConverterFactory.create(GsonBuilder().setLenient().create()))

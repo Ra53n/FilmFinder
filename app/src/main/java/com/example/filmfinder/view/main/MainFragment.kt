@@ -4,9 +4,8 @@ import android.content.Context
 import android.content.IntentFilter
 import android.net.ConnectivityManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -20,6 +19,7 @@ import com.example.filmfinder.databinding.MainFragmentBinding
 import com.example.filmfinder.view.OnItemClickListener
 import com.example.filmfinder.view.details.BUNDLE_KEY
 import com.example.filmfinder.view.details.DetailsFragment
+import com.example.filmfinder.view.likedMovies.LikedMoviesFragment
 import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
@@ -30,24 +30,29 @@ class MainFragment : Fragment(), OnItemClickListener {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
+
     private val adapter = MainFragmentAdapter(this)
     private val adapterSecond = MainFragmentAdapter(this)
+
     private val connectivityActionBroadcastReceiver = ConnectivityActionBroadcastReceiver()
+
     private val isAdult: Boolean by lazy {
         requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(SWITCH_IS_CHECKED, false)
     }
+
+    private val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
 
 
     companion object {
         fun newInstance() = MainFragment()
     }
 
-    private val viewModel by lazy { ViewModelProvider(this).get(MainViewModel::class.java) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        setHasOptionsMenu(true)
         _binding = MainFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -57,35 +62,18 @@ class MainFragment : Fragment(), OnItemClickListener {
         _binding = null
     }
 
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel.getData().observe(viewLifecycleOwner, (Observer { renderData(it) }))
-        requireActivity().registerReceiver(
-            connectivityActionBroadcastReceiver, IntentFilter(
-                ConnectivityManager.CONNECTIVITY_ACTION
-            )
-        )
-        bindViews()
-        loadContent()
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_screen_menu, menu)
+        val item = menu.findItem(R.id.menu_item__adult_switch)
+            .apply { setActionView(R.layout.main_switch_layout) }
+        val switch = item.actionView.findViewById<SwitchCompat>(R.id.main_switch)
+        bindSwitchOnCheckedChangedListener(switch)
+        switch?.isChecked = isAdult
+        super.onCreateOptionsMenu(menu, inflater)
     }
 
-    private fun loadContent() {
-        if (isAdult) {
-            viewModel.getMoviesWitchAdultFromServer()
-        } else {
-            viewModel.getMoviesFromServer()
-        }
-    }
-
-    private fun bindViews() {
-        binding.mainFragmentSwitchAdult.isChecked = isAdult
-        bindAdapters()
-        bindSwitchAdultClickListener()
-    }
-
-    private fun bindSwitchAdultClickListener() {
-        binding.mainFragmentSwitchAdult.setOnCheckedChangeListener { _, isChecked ->
+    private fun bindSwitchOnCheckedChangedListener(switch: SwitchCompat) {
+        switch.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 viewModel.getMoviesWitchAdultFromServer()
             } else {
@@ -97,6 +85,42 @@ class MainFragment : Fragment(), OnItemClickListener {
             }
         }
     }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_item__liked_movies -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(
+                        R.id.container,
+                        LikedMoviesFragment()
+                    )
+                    .addToBackStack("").commit()
+                true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.getData().observe(viewLifecycleOwner, (Observer { renderData(it) }))
+        requireActivity().registerReceiver(
+            connectivityActionBroadcastReceiver, IntentFilter(
+                ConnectivityManager.CONNECTIVITY_ACTION
+            )
+        )
+        bindAdapters()
+        loadContent()
+    }
+
+    private fun loadContent() {
+        if (isAdult) {
+            viewModel.getMoviesWitchAdultFromServer()
+        } else {
+            viewModel.getMoviesFromServer()
+        }
+    }
+
 
     private fun bindAdapters() {
         with(binding) {

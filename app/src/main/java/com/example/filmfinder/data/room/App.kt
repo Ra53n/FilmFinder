@@ -20,6 +20,7 @@ class App :Application(){
                 if(appInstance == null) throw IllformedLocaleException()
                 else{
                     db = Room.databaseBuilder(appInstance!!.applicationContext,LikedMoviesDatabase::class.java, DB_NAME)
+                        .allowMainThreadQueries()
                         .build()
                 }
             }
