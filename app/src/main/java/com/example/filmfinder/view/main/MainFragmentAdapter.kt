@@ -10,9 +10,8 @@ import coil.api.load
 import com.example.filmfinder.R
 import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.data.room.App
-import com.example.filmfinder.data.room.LikedMoviesEntity
+import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 import com.example.filmfinder.view.OnItemClickListener
-import com.squareup.picasso.Picasso
 
 class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) :
     RecyclerView.Adapter<MainFragmentAdapter.MainViewHolder>() {

@@ -1,4 +1,4 @@
-package com.example.filmfinder.data.repository
+package com.example.filmfinder.data.repository.remoteRepo
 
 import com.example.filmfinder.BuildConfig
 import com.example.filmfinder.data.MovieListDTO

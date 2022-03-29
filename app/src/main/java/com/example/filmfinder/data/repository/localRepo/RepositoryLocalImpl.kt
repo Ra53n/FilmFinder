@@ -1,8 +1,8 @@
-package com.example.filmfinder.data.repository
+package com.example.filmfinder.data.repository.localRepo
 
 import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.room.App
-import com.example.filmfinder.data.room.LikedMoviesEntity
+import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 
 class RepositoryLocalImpl : RepositoryLocal {
     override fun getAllLikedMovies(): List<Movie> {

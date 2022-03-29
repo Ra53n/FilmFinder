@@ -104,7 +104,7 @@ class MainFragment : Fragment(), OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, (Observer { renderData(it) }))
-        requireActivity().registerReceiver(
+        activity?.registerReceiver(
             connectivityActionBroadcastReceiver, IntentFilter(
                 ConnectivityManager.CONNECTIVITY_ACTION
             )

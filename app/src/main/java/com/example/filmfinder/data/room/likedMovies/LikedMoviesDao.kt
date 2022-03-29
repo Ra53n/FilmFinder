@@ -1,4 +1,4 @@
-package com.example.filmfinder.data.room
+package com.example.filmfinder.data.room.likedMovies
 
 import androidx.room.*
 

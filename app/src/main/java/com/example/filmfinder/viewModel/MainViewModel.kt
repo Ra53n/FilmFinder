@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.MovieListDTO
-import com.example.filmfinder.data.repository.RepositoryRemote
-import com.example.filmfinder.data.repository.RepositoryRemoteImpl
+import com.example.filmfinder.data.repository.remoteRepo.RepositoryRemote
+import com.example.filmfinder.data.repository.remoteRepo.RepositoryRemoteImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -26,8 +26,8 @@ class MainViewModel(
     }
 
     private fun getMoviesAdultFromRemoteSource() {
-        repositoryRemote.getPopularFilmFromService(true, callbackUpcoming)
-        repositoryRemote.getUpcomingFilmFromService(callbackPopular)
+        repositoryRemote.getPopularFilmFromService(true, callbackPopular)
+        repositoryRemote.getUpcomingFilmFromService(callbackUpcoming)
     }
 
 
