@@ -17,22 +17,24 @@ import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.databinding.MainFragmentBinding
 import com.example.filmfinder.view.OnItemClickListener
-import com.example.filmfinder.view.details.BUNDLE_KEY
+import com.example.filmfinder.view.details.DETAILS_FRAGMENT_BUNDLE_KEY
 import com.example.filmfinder.view.details.DetailsFragment
 import com.example.filmfinder.view.likedMovies.LikedMoviesFragment
+import com.example.filmfinder.view.notes.NoteFragment
 import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.MainViewModel
 import com.google.android.material.snackbar.Snackbar
 
 const val SWITCH_IS_CHECKED = "SWITCH_IS_CHECKED"
 
-class MainFragment : Fragment(), OnItemClickListener {
+class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val adapter = MainFragmentAdapter(this)
-    private val adapterSecond = MainFragmentAdapter(this)
+    private val onItemClickListener = MainOnItemClickListener(this)
+    private val adapter = MainFragmentAdapter(onItemClickListener)
+    private val adapterSecond = MainFragmentAdapter(onItemClickListener)
 
     private val connectivityActionBroadcastReceiver = ConnectivityActionBroadcastReceiver()
 
@@ -92,7 +94,16 @@ class MainFragment : Fragment(), OnItemClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .add(
                         R.id.container,
-                        LikedMoviesFragment()
+                        LikedMoviesFragment.newInstance()
+                    )
+                    .addToBackStack("").commit()
+                true
+            }
+            R.id.menu_item__movie_notes -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(
+                        R.id.container,
+                        NoteFragment.newInstance()
                     )
                     .addToBackStack("").commit()
                 true
@@ -167,15 +178,6 @@ class MainFragment : Fragment(), OnItemClickListener {
     private fun showLoading(isShow: Boolean) {
         binding.loadingLayout.isVisible = isShow
         binding.mainLayout.isVisible = !isShow
-    }
-
-    override fun onItemClick(movie: MovieDTO) {
-        requireActivity().supportFragmentManager.beginTransaction()
-            .add(
-                R.id.container,
-                DetailsFragment.newInstance(Bundle().apply { putParcelable(BUNDLE_KEY, movie) })
-            )
-            .addToBackStack("").commit()
     }
 
 }

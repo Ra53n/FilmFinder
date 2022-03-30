@@ -22,7 +22,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainFragmentRecyclerViewUp"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="260dp"
             android:layout_margin="6dp"
             android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/upcoming_movies_textview"
@@ -45,7 +45,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mainFragmentRecyclerViewDown"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="260dp"
             android:layout_margin="6dp"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
@@ -57,6 +57,8 @@
             android:id="@+id/loadingLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:visibility="visible">
 
             <ProgressBar

@@ -1,4 +1,4 @@
-package com.example.filmfinder.data.room
+package com.example.filmfinder
 
 import android.app.Application
 import androidx.room.Room
@@ -28,9 +28,7 @@ class App : Application() {
                     dbLikedMovies = Room.databaseBuilder(
                         appInstance!!.applicationContext,
                         LikedMoviesDatabase::class.java, LIKED_MOVIES_DB_NAME
-                    )
-                        .allowMainThreadQueries()
-                        .build()
+                    ).build()
                 }
             }
             return dbLikedMovies!!.likedMovieDao()
@@ -43,9 +41,7 @@ class App : Application() {
                     dbMovieNotes = Room.databaseBuilder(
                         appInstance!!.applicationContext,
                         MovieNotesDatabase::class.java, MOVIE_NOTES_DB_NAME
-                    )
-                        .allowMainThreadQueries()
-                        .build()
+                    ).build()
                 }
             }
             return dbMovieNotes!!.movieNotesDao()

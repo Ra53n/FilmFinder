@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "liked_movies_entity")
 data class LikedMoviesEntity(
-    @PrimaryKey(autoGenerate = true) val id: Long,
+    @PrimaryKey(autoGenerate = false)val movieId:Long,
     val title: String,
     val overview: String,
     val realiseDate: String,

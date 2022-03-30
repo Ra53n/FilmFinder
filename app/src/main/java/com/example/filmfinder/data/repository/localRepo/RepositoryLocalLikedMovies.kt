@@ -2,7 +2,7 @@ package com.example.filmfinder.data.repository.localRepo
 
 import com.example.filmfinder.data.Movie
 
-interface RepositoryLocal {
+interface RepositoryLocalLikedMovies {
     fun getAllLikedMovies():List<Movie>
     fun saveMovie(movie: Movie)
     fun deleteMovie(movie: Movie)

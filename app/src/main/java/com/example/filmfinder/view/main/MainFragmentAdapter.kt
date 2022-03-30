@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
 import com.example.filmfinder.R
 import com.example.filmfinder.data.MovieDTO
-import com.example.filmfinder.data.room.App
+import com.example.filmfinder.App
 import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 import com.example.filmfinder.view.OnItemClickListener
 
@@ -45,17 +45,20 @@ class MainFragmentAdapter(val onItemClickListener: OnItemClickListener) :
 
                 findViewById<ImageView>(R.id.main_recycler_item_movie_image_view).load("https://www.themoviedb.org/t/p/original" + movie.posterPath)
                 setOnClickListener { onItemClickListener.onItemClick(movie) }
-                findViewById<TextView>(R.id.main_recycler_item_movie_rating).setOnClickListener {
-                    App.getLikedMoviesDao().insert(
-                        LikedMoviesEntity(
-                            0,
-                            movie.title,
-                            movie.overview,
-                            movie.releaseDate,
-                            movie.voteAverage.toString(),
-                            movie.posterPath
+                findViewById<ImageView>(R.id.main_recycler_item_movie_like_image_view).bringToFront()
+                findViewById<ImageView>(R.id.main_recycler_item_movie_like_image_view).setOnClickListener {
+                    Thread {
+                        App.getLikedMoviesDao().insert(
+                            LikedMoviesEntity(
+                                movie.id,
+                                movie.title,
+                                movie.overview,
+                                movie.releaseDate,
+                                movie.voteAverage.toString(),
+                                movie.posterPath
+                            )
                         )
-                    )
+                    }.start()
                 }
             }
         }

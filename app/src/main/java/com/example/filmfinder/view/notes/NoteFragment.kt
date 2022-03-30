@@ -1,4 +1,4 @@
-package com.example.filmfinder.view.likedMovies
+package com.example.filmfinder.view.notes
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,37 +9,44 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
-import com.example.filmfinder.databinding.LikedMoviesFragmentBinding
+import com.example.filmfinder.data.room.movieNotes.MovieNotesEntity
+import com.example.filmfinder.databinding.NoteFragmentBinding
 import com.example.filmfinder.view.snackBarWithAction
-import com.example.filmfinder.viewModel.LikedMoviesViewModel
+import com.example.filmfinder.viewModel.NotesViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class LikedMoviesFragment : Fragment() {
-    private var _binding: LikedMoviesFragmentBinding? = null
+class NoteFragment : Fragment() {
+    private var _binding: NoteFragmentBinding? = null
     private val binding get() = _binding!!
-    private val adapter = LikedMoviesFragmentAdapter()
+    private lateinit var adapter: NoteFragmentAdapter
 
     companion object {
-        fun newInstance() = LikedMoviesFragment()
+        fun newInstance() = NoteFragment()
     }
 
-    private val viewModel by lazy { ViewModelProvider(this)[LikedMoviesViewModel::class.java] }
+    private val viewModel by lazy { ViewModelProvider(this)[NotesViewModel::class.java] }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = LikedMoviesFragmentBinding.inflate(inflater, container, false)
+        _binding = NoteFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
-        binding.likedMoviesRv.layoutManager = LinearLayoutManager(requireContext())
-        binding.likedMoviesRv.adapter = adapter
-        viewModel.getLikedMoviesFromLocalSource()
+        val adapterController = object : NoteFragmentAdapter.Controller {
+            override fun onDeleteButtonClick(entity: MovieNotesEntity) {
+                viewModel.deleteNoteFromLocalRepository(entity)
+            }
+        }
+        adapter = NoteFragmentAdapter(adapterController)
+        binding.noteFragmentRv.layoutManager = LinearLayoutManager(requireContext())
+        binding.noteFragmentRv.adapter = adapter
+        viewModel.getNotesFromLocalSource()
     }
 
     override fun onDestroy() {
@@ -51,12 +58,13 @@ class LikedMoviesFragment : Fragment() {
         when (appState) {
             is AppState.Error -> binding.root.snackBarWithAction(
                 R.string.error, Snackbar.LENGTH_INDEFINITE, "reload"
-            ) { viewModel.getLikedMoviesFromLocalSource() }
-            is AppState.Success -> {
+            ) { viewModel.getNotesFromLocalSource() }
+            is AppState.SuccessNotes -> {
                 with(binding) {
-                    adapter.setMovie(appState.likedMovies)
+                    adapter.setMovie(appState.notes)
                 }
             }
         }
     }
+
 }
