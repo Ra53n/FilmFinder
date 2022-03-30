@@ -15,12 +15,26 @@
         android:orientation="vertical">
 
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/liked_movies__recycler_item_movie_image_view"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="6"
-            android:scaleType="fitXY" />
+            android:layout_weight="6">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/liked_movies__recycler_item_delete_image_view"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_baseline_close_24" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/liked_movies__recycler_item_movie_image_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitXY" />
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/liked_movies__recycler_item_movie_name_textview"

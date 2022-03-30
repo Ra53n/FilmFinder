@@ -25,6 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginVertical="3sp"
                 android:padding="8dp"
+                android:textAlignment="center"
                 android:textSize="16dp"
                 tools:text="Человек паук: Нет пути домой." />
 

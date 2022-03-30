@@ -1,7 +1,7 @@
 package com.example.filmfinder.data.repository.localRepo
 
-import com.example.filmfinder.data.Movie
 import com.example.filmfinder.App
+import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 import com.example.filmfinder.data.room.movieNotes.MovieNotesEntity
 
@@ -17,6 +17,10 @@ class RepositoryLocalImpl : RepositoryLocalLikedMovies,RepositoryLocalNotes {
 
     override fun deleteMovie(movie: Movie) {
         App.getLikedMoviesDao().delete(convertMovieToLikedMovie(movie))
+    }
+
+    override fun deleteMovie(entity: LikedMoviesEntity) {
+        App.getLikedMoviesDao().delete(entity)
     }
 
     private fun convertMovieToLikedMovie(movie: Movie) = with(movie) {

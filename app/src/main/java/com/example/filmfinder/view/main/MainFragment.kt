@@ -14,11 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
-import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.databinding.MainFragmentBinding
-import com.example.filmfinder.view.OnItemClickListener
-import com.example.filmfinder.view.details.DETAILS_FRAGMENT_BUNDLE_KEY
-import com.example.filmfinder.view.details.DetailsFragment
 import com.example.filmfinder.view.likedMovies.LikedMoviesFragment
 import com.example.filmfinder.view.notes.NoteFragment
 import com.example.filmfinder.view.snackBarWithAction

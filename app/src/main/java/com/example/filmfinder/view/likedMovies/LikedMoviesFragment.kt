@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
+import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 import com.example.filmfinder.databinding.LikedMoviesFragmentBinding
 import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.LikedMoviesViewModel
@@ -17,7 +18,7 @@ import com.google.android.material.snackbar.Snackbar
 class LikedMoviesFragment : Fragment() {
     private var _binding: LikedMoviesFragmentBinding? = null
     private val binding get() = _binding!!
-    private val adapter = LikedMoviesFragmentAdapter()
+    private lateinit var adapter: LikedMoviesFragmentAdapter
 
     companion object {
         fun newInstance() = LikedMoviesFragment()
@@ -37,6 +38,12 @@ class LikedMoviesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
+        val controller = object : LikedMoviesFragmentAdapter.Controller {
+            override fun onDeleteItemClick(entity: LikedMoviesEntity) {
+                viewModel.deleteNoteFromLocalRepository(entity)
+            }
+        }
+        adapter = LikedMoviesFragmentAdapter(controller)
         binding.likedMoviesRv.layoutManager = LinearLayoutManager(requireContext())
         binding.likedMoviesRv.adapter = adapter
         viewModel.getLikedMoviesFromLocalSource()

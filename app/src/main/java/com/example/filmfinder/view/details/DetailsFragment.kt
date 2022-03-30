@@ -56,7 +56,7 @@ class DetailsFragment : Fragment() {
             val popupMenu = PopupMenu(context, it, Gravity.END)
             popupMenu.setOnMenuItemClickListener {
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .add(
+                    .replace(
                         R.id.container,
                         NoteAddFragment.newInstance(Bundle().apply {
                             putParcelable(

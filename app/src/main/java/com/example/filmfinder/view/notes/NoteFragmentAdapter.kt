@@ -45,7 +45,11 @@ class NoteFragmentAdapter(private val controller: Controller) :
                     entity.note
                 findViewById<TextView>(R.id.item_note__date_textview).text = entity.date
                 findViewById<ImageView>(R.id.item_note__poster_iv).load("https://www.themoviedb.org/t/p/original" + entity.posterPath)
-                findViewById<Button>(R.id.item_note__delete_button).setOnClickListener { controller.onDeleteButtonClick(entity) }
+                findViewById<Button>(R.id.item_note__delete_button).setOnClickListener {
+                    controller.onDeleteButtonClick(
+                        entity
+                    )
+                }
             }
         }
     }

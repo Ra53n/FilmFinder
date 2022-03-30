@@ -1,14 +1,16 @@
 package com.example.filmfinder.view.notes
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.method.ScrollingMovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import coil.api.load
-import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.App
+import com.example.filmfinder.data.MovieDTO
 import com.example.filmfinder.data.room.movieNotes.MovieNotesEntity
 import com.example.filmfinder.databinding.NoteAddFragmentBinding
 import java.util.*
@@ -47,6 +49,7 @@ class NoteAddFragment : Fragment() {
                     App.getMovieNotesDao().insert(createNote(it))
                 }
             }.start()
+            Handler(Looper.getMainLooper()).postDelayed({activity?.supportFragmentManager?.popBackStack()},100)
         }
     }
 

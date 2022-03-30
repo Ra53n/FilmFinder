@@ -7,9 +7,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.example.filmfinder.App
 import com.example.filmfinder.R
 import com.example.filmfinder.data.MovieDTO
-import com.example.filmfinder.App
 import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 import com.example.filmfinder.view.OnItemClickListener
 
