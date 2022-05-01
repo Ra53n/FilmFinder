@@ -30,16 +30,16 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
                 android:layout_marginTop="16sp"
-                android:textSize="28sp"
                 android:textAlignment="center"
+                android:textSize="28sp"
                 android:textStyle="bold"
                 tools:text="Человек паук: Нет пути домой!" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="10sp">
+                android:layout_marginTop="10sp"
+                android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/note_add_fragment__iv"
@@ -54,22 +54,23 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3"
                     android:orientation="vertical">
+
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:text="Сюжет"
-                        android:textSize="20sp"
-                        android:layout_weight="2"
-                        android:textAlignment="center"
                         android:layout_gravity="center"
-                        android:textStyle="bold"/>
+                        android:layout_weight="2"
+                        android:text="Сюжет"
+                        android:textAlignment="center"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:id="@+id/note_add_fragment__description_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
-                        android:layout_weight="20"
                         android:layout_marginStart="12sp"
+                        android:layout_weight="20"
                         android:scrollbars="vertical"
                         android:textSize="12dp"
                         tools:text="Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь." />
