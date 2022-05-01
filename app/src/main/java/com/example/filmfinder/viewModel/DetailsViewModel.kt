@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.MovieDTO
-import com.example.filmfinder.data.repository.DetailsRepository
-import com.example.filmfinder.data.repository.DetailsRepositoryImpl
+import com.example.filmfinder.data.repository.detailsRepo.DetailsRepository
+import com.example.filmfinder.data.repository.detailsRepo.DetailsRepositoryImpl
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -14,7 +14,9 @@ class DetailsViewModel(
     private val liveDataToObserver: MutableLiveData<AppState> = MutableLiveData(),
     private val repository: DetailsRepository = DetailsRepositoryImpl()
 ) : ViewModel() {
+
     fun getData() = liveDataToObserver
+
     fun getMoveFromRemoteSource(id: Long) {
         liveDataToObserver.postValue(AppState.Loading)
         repository.getMovieFromServer(id, callback)

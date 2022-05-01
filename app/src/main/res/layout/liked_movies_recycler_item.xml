@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="120dp"
-    android:layout_height="match_parent"
-    android:layout_margin="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    android:layout_margin="32dp"
     android:orientation="horizontal"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="12dp"
@@ -14,59 +14,62 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10">
+            android:layout_weight="6">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/main_recycler_item_movie_like_image_view"
+                android:id="@+id/liked_movies__recycler_item_delete_image_view"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
                 android:layout_margin="8dp"
-                android:src="@drawable/heart" />
-
+                android:src="@drawable/ic_baseline_close_24" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/main_recycler_item_movie_image_view"
+                android:id="@+id/liked_movies__recycler_item_movie_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerInParent="true"
                 android:scaleType="fitXY" />
+
         </RelativeLayout>
 
-
         <TextView
-            android:id="@+id/main_recycler_item_movie_name_textview"
+            android:id="@+id/liked_movies__recycler_item_movie_name_textview"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="3"
-            android:padding="6dp"
-            android:textAlignment="center" />
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:textAlignment="center"
+            android:textSize="32dp" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/main_recycler_item_movie_year"
+                android:id="@+id/liked_movies__recycler_item_movie_year"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textAlignment="center" />
+                android:text="2021"
+                android:textAlignment="center"
+                android:textSize="48dp" />
 
             <TextView
-                android:id="@+id/main_recycler_item_movie_rating"
+                android:id="@+id/liked_movies__recycler_item_movie_rating"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textAlignment="center"
-                app:drawableLeftCompat="@drawable/ic_baseline_star_rate_24"
+                android:textSize="48dp"
+                app:drawableLeftCompat="@drawable/ic_baseline_star_rate_50"
                 app:drawableTint="@color/yellow" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -1,65 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/popular_movies_textview"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:text="Popular movies"
-        android:textSize="32dp"
-        app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewUp"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainFragmentRecyclerViewUp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="6dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/upcoming_movies_textview"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popular_movies_textview"
-        app:reverseLayout="true" />
-
-    <TextView
-        android:id="@+id/upcoming_movies_textview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="6dp"
-        android:text="Upcoming movies"
-        android:textSize="32dp"
-        app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewDown"
-        app:layout_constraintTop_toBottomOf="@id/mainFragmentRecyclerViewUp" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mainFragmentRecyclerViewDown"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_margin="6dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/upcoming_movies_textview"
-        app:reverseLayout="true" />
-
-    <FrameLayout
-        android:id="@+id/loadingLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <ProgressBar
-            style="?android:attr/progressBarStyleLarge"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/popular_movies_textview"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center" />
-    </FrameLayout>
+            android:layout_margin="6dp"
+            android:text="Popular movies"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewUp"
+            app:layout_constraintTop_toTopOf="parent" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainFragmentRecyclerViewUp"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_margin="6dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/upcoming_movies_textview"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/popular_movies_textview"
+            app:reverseLayout="true" />
+
+        <TextView
+            android:id="@+id/upcoming_movies_textview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:text="Upcoming movies"
+            android:textSize="32dp"
+            app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewDown"
+            app:layout_constraintTop_toBottomOf="@id/mainFragmentRecyclerViewUp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mainFragmentRecyclerViewDown"
+            android:layout_width="match_parent"
+            android:layout_height="260dp"
+            android:layout_margin="6dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_movies_textview"
+            app:reverseLayout="true" />
+
+        <FrameLayout
+            android:id="@+id/loadingLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="visible">
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:visibility="visible" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
