@@ -15,6 +15,7 @@ import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.databinding.MainFragmentBinding
+import com.example.filmfinder.view.contentProvider.ContentProviderFragment
 import com.example.filmfinder.view.likedMovies.LikedMoviesFragment
 import com.example.filmfinder.view.notes.NoteFragment
 import com.example.filmfinder.view.snackBarWithAction
@@ -101,6 +102,12 @@ class MainFragment : Fragment() {
                         R.id.container,
                         NoteFragment.newInstance()
                     )
+                    .addToBackStack("").commit()
+                true
+            }
+            R.id.menu_item__contacts -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(R.id.container, ContentProviderFragment.newInstance())
                     .addToBackStack("").commit()
                 true
             }

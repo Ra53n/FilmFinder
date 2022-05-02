@@ -21,7 +21,4 @@ interface LikedMoviesDao {
             "CASE WHEN :isAsc = 1 THEN rating END ASC, " +
             "CASE WHEN :isAsc = 2 THEN rating END DESC ")
     fun getAllMoviesSortedByRating(isAsc : Int): List<LikedMoviesEntity>
-
-    @Query("SELECT * FROM liked_movies_entity")
-    fun getAllUpcomingMovies(): List<LikedMoviesEntity>
 }

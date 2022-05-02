@@ -15,4 +15,8 @@
         android:id="@+id/menu_item__movie_notes"
         android:title="Notes"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_item__contacts"
+        android:title="Contacts"
+        app:showAsAction="never"/>
 </menu>
