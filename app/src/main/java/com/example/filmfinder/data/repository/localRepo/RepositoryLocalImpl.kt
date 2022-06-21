@@ -5,9 +5,14 @@ import com.example.filmfinder.data.Movie
 import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
 import com.example.filmfinder.data.room.movieNotes.MovieNotesEntity
 
-class RepositoryLocalImpl : RepositoryLocalLikedMovies,RepositoryLocalNotes {
+class RepositoryLocalImpl : RepositoryLocalLikedMovies, RepositoryLocalNotes {
     override fun getAllLikedMovies(): List<Movie> {
         return App.getLikedMoviesDao().getAllLikedMovies()
+            .map { convertLikedMovieToMovie(it) }
+    }
+
+    override fun getLikedMoviesSortedByRating(isAsc:Int): List<Movie> {
+        return App.getLikedMoviesDao().getAllMoviesSortedByRating(isAsc)
             .map { convertLikedMovieToMovie(it) }
     }
 
@@ -30,7 +35,7 @@ class RepositoryLocalImpl : RepositoryLocalLikedMovies,RepositoryLocalNotes {
 
     private fun convertLikedMovieToMovie(likedMoviesEntity: LikedMoviesEntity) =
         with(likedMoviesEntity) {
-            Movie(movieId,title, overview, realiseDate, rating, posterPath)
+            Movie(movieId, title, overview, realiseDate, rating, posterPath)
         }
 
     override fun getAllNotes(): List<MovieNotesEntity> {
