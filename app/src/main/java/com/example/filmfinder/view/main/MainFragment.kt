@@ -15,12 +15,16 @@ import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.databinding.MainFragmentBinding
+import com.example.filmfinder.maps.GeofenceBroadcastReceiver
+import com.example.filmfinder.maps.MapsFragment
 import com.example.filmfinder.view.contentProvider.ContentProviderFragment
 import com.example.filmfinder.view.likedMovies.LikedMoviesFragment
 import com.example.filmfinder.view.notes.NoteFragment
 import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.MainViewModel
+import com.google.android.gms.location.Geofence
 import com.google.android.material.snackbar.Snackbar
+import java.util.jar.Manifest
 
 const val SWITCH_IS_CHECKED = "SWITCH_IS_CHECKED"
 
@@ -34,6 +38,8 @@ class MainFragment : Fragment() {
     private val adapterSecond = MainFragmentAdapter(onItemClickListener)
 
     private val connectivityActionBroadcastReceiver = ConnectivityActionBroadcastReceiver()
+    private val geofenceBroadcastReceiver = GeofenceBroadcastReceiver()
+
 
     private val isAdult: Boolean by lazy {
         requireActivity().getPreferences(Context.MODE_PRIVATE).getBoolean(SWITCH_IS_CHECKED, false)
@@ -111,6 +117,12 @@ class MainFragment : Fragment() {
                     .addToBackStack("").commit()
                 true
             }
+            R.id.menu_item__maps -> {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .add(R.id.container, MapsFragment())
+                    .addToBackStack("").commit()
+                true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -176,6 +188,7 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         requireActivity().unregisterReceiver(connectivityActionBroadcastReceiver)
+        requireActivity().unregisterReceiver(geofenceBroadcastReceiver)
     }
 
     private fun showLoading(isShow: Boolean) {

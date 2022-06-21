@@ -19,4 +19,8 @@
         android:id="@+id/menu_item__contacts"
         android:title="Contacts"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/menu_item__maps"
+        android:title="Cinemas"
+        app:showAsAction="never"/>
 </menu>
