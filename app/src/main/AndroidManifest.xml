@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".App"
@@ -14,6 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FilmFinder">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".view.MainActivity"
             android:exported="true">
@@ -23,6 +29,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <receiver android:name=".ConnectivityActionBroadcastReceiver" />
+        <receiver
+            android:name=".maps.GeofenceBroadcastReceiver"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.ACCESS_FINE_LOCATION" />
     </application>
+
 </manifest>
