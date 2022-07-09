@@ -8,6 +8,10 @@ apply plugin: 'kotlin-kapt'
 
 
 android {
+    signingConfigs {
+        release {
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -29,8 +33,26 @@ android {
         def apiKey = properties.getProperty("api_key", "")
         it.buildConfigField "String", "MOVIE_API_KEY", apiKey
     }
+
+    signingConfigs{
+        release{
+            Properties properties = new Properties()
+            properties.load(project.rootProject.file("local.properties").newDataInputStream())
+            def password = properties.getProperty("password")
+            storeFile file("C:\\Users\\rikik\\filmfinderkey.jks")
+            storePassword = password
+            keyAlias '123456'
+            keyPassword = password
+        }
+    }
     buildTypes {
+        education{
+            initWith debug
+            minifyEnabled true
+        }
+
         release {
+            signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -41,6 +63,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    flavorDimensions 'version'
+    productFlavors {
+        educationProject {
+            dimension 'version'
+        }
     }
 }
 
