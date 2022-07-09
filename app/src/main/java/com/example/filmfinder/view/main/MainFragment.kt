@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.filmfinder.ConnectivityActionBroadcastReceiver
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
@@ -22,16 +23,14 @@ import com.example.filmfinder.view.likedMovies.LikedMoviesFragment
 import com.example.filmfinder.view.notes.NoteFragment
 import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.MainViewModel
-import com.google.android.gms.location.Geofence
 import com.google.android.material.snackbar.Snackbar
-import java.util.jar.Manifest
 
 const val SWITCH_IS_CHECKED = "SWITCH_IS_CHECKED"
 
-class MainFragment : Fragment() {
+class MainFragment : Fragment(R.layout.main_fragment) {
 
-    private var _binding: MainFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding: MainFragmentBinding by viewBinding()
+
 
     private val onItemClickListener = MainOnItemClickListener(this)
     private val adapter = MainFragmentAdapter(onItemClickListener)
@@ -47,24 +46,17 @@ class MainFragment : Fragment() {
 
     private val viewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
 
-
     companion object {
         fun newInstance() = MainFragment()
     }
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setHasOptionsMenu(true)
-        _binding = MainFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -179,7 +171,7 @@ class MainFragment : Fragment() {
             is AppState.Error -> {
                 showLoading(false)
                 binding.root.snackBarWithAction(
-                    R.string.error, Snackbar.LENGTH_INDEFINITE, "reload"
+                    R.string.error, Snackbar.LENGTH_INDEFINITE, resources.getString(R.string.reload)
                 ) { viewModel.getMoviesFromServer() }
             }
         }

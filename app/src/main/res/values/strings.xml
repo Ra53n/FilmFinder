@@ -2,4 +2,9 @@
     <string name="app_name">FilmFinder</string>
     <string name="success">Success</string>
     <string name="error">Error</string>
+    <string name="film_poster_endpoint">https://www.themoviedb.org/t/p/original</string>
+    <string name="n_a">N/A</string>
+    <string name="something_gone_wrong">Something gone wrong!</string>
+    <string name="back">Back</string>
+    <string name="reload">reload</string>
 </resources>
