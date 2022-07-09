@@ -4,27 +4,27 @@
 
     <item
         android:id="@+id/menu_item__adult_switch"
-        app:actionLayout="@layout/main_switch_layout"
         android:title=""
-        app:showAsAction="always"
-        android:visible="true"/>
+        android:visible="true"
+        app:actionLayout="@layout/main_switch_layout"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_item__liked_movies"
-        android:title="Liked movies"
-        app:showAsAction="never"
-        android:visible="true"/>
+        android:title="@string/liked_movies"
+        android:visible="true"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_item__movie_notes"
-        android:title="Notes"
-        app:showAsAction="never"
-        android:visible="true"/>
+        android:title="@string/notes_menu_item_title"
+        android:visible="true"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_item__contacts"
-        android:title="Contacts"
-        app:showAsAction="never"
-        android:visible="false"/>
+        android:title="@string/contacts_menu_item_title"
+        android:visible="false"
+        app:showAsAction="never" />
     <item
         android:id="@+id/menu_item__maps"
-        android:title="Cinemas"
-        app:showAsAction="never"/>
+        android:title="@string/cinemas_menu_item_title"
+        app:showAsAction="never" />
 </menu>

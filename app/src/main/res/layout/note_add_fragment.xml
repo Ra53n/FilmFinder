@@ -60,7 +60,7 @@
                         android:layout_height="0dp"
                         android:layout_gravity="center"
                         android:layout_weight="2"
-                        android:text="Сюжет"
+                        android:text="@string/plot"
                         android:textAlignment="center"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -72,7 +72,7 @@
                         android:layout_marginStart="12sp"
                         android:layout_weight="20"
                         android:scrollbars="vertical"
-                        android:textSize="12dp"
+                        android:textSize="12sp"
                         tools:text="Мистерио удаётся выяснить истинную личность Человека-паука. С этого момента жизнь Питера Паркера становится невыносимой. Если ранее он мог успешно переключаться между своими амплуа, то сейчас это сделать невозможно. Переворачивается с ног на голову не только жизнь Человека-пауку, но и репутация. Понимая, что так жить невозможно, главный герой фильма «Человек-паук: Нет пути домой» принимает решение обратиться за помощью к своему давнему знакомому Стивену Стрэнджу. Питер Паркер надеется, что с помощью магии он сможет восстановить его анонимность. Стрэндж соглашается помочь." />
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -99,7 +99,7 @@
                     android:layout_gravity="bottom"
                     android:layout_margin="10sp"
                     android:backgroundTint="@color/white"
-                    android:text="Добавить"
+                    android:text="@string/add"
                     android:textColor="@color/black" />
 
                 <TextView

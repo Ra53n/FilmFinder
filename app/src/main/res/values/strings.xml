@@ -7,4 +7,20 @@
     <string name="something_gone_wrong">Something gone wrong!</string>
     <string name="back">Back</string>
     <string name="reload">reload</string>
+    <string name="search">search</string>
+    <string name="likes_title">Your likes</string>
+    <string name="popular_movies_title">Popular movies</string>
+    <string name="upcoming_movies_title">Upcoming movies</string>
+    <string name="adult_mode_switch_title">Adult mode</string>
+    <string name="add">Добавить</string>
+    <string name="plot">Сюжет</string>
+    <string name="notes_title">Your notes</string>
+    <string name="close_button_sign">X</string>
+    <string name="make_note_menu_title">Make note</string>
+    <string name="sort_by_rating">Sort by rating</string>
+    <string name="clear">Clear</string>
+    <string name="liked_movies">Liked movies</string>
+    <string name="notes_menu_item_title">Notes</string>
+    <string name="contacts_menu_item_title">Contacts</string>
+    <string name="cinemas_menu_item_title">Cinemas</string>
 </resources>

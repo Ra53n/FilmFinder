@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/liked_movies_fragment__sort_by_rating"
-        android:title="Sort by rating"
+        android:title="@string/sort_by_rating"
         app:showAsAction="always" />
 
     <item
         android:id="@+id/liked_movies_fragment__clear_filters"
-        android:title="Clear"
-        app:showAsAction="always"
-        android:visible="false"/>
+        android:title="@string/clear"
+        android:visible="false"
+        app:showAsAction="always" />
 </menu>

@@ -34,8 +34,8 @@ android {
         it.buildConfigField "String", "MOVIE_API_KEY", apiKey
     }
 
-    signingConfigs{
-        release{
+    signingConfigs {
+        release {
             Properties properties = new Properties()
             properties.load(project.rootProject.file("local.properties").newDataInputStream())
             def password = properties.getProperty("password")
@@ -46,7 +46,7 @@ android {
         }
     }
     buildTypes {
-        education{
+        education {
             initWith debug
             minifyEnabled true
         }

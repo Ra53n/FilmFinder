@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="600dp"
     android:layout_margin="32dp"
@@ -57,9 +58,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="2021"
                 android:textAlignment="center"
-                android:textSize="48dp" />
+                android:textSize="48sp"
+                tools:text="2021" />
 
             <TextView
                 android:id="@+id/liked_movies__recycler_item_movie_rating"
@@ -68,7 +69,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:textSize="48dp"
+                android:textSize="48sp"
                 app:drawableLeftCompat="@drawable/ic_baseline_star_rate_50"
                 app:drawableTint="@color/yellow" />
         </androidx.appcompat.widget.LinearLayoutCompat>
