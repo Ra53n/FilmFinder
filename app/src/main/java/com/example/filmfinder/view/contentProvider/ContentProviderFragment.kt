@@ -121,7 +121,7 @@ class ContentProviderFragment : Fragment() {
                         cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
                     val id = cursor.getString(
                         cursor.getColumnIndex(ContactsContract.Contacts.NAME_RAW_CONTACT_ID)
-                    );
+                    )
                     val phones = contentResolver.query(
                         ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
                         null,

@@ -6,6 +6,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
 import com.example.filmfinder.data.room.likedMovies.LikedMoviesEntity
@@ -14,9 +15,8 @@ import com.example.filmfinder.view.snackBarWithAction
 import com.example.filmfinder.viewModel.LikedMoviesViewModel
 import com.google.android.material.snackbar.Snackbar
 
-class LikedMoviesFragment : Fragment() {
-    private var _binding: LikedMoviesFragmentBinding? = null
-    private val binding get() = _binding!!
+class LikedMoviesFragment : Fragment(R.layout.liked_movies_fragment) {
+    private val binding: LikedMoviesFragmentBinding by viewBinding()
     private lateinit var adapter: LikedMoviesFragmentAdapter
     private lateinit var mOptionsMenu: Menu
 
@@ -26,19 +26,23 @@ class LikedMoviesFragment : Fragment() {
 
     private val viewModel by lazy { ViewModelProvider(this)[LikedMoviesViewModel::class.java] }
 
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         setHasOptionsMenu(true)
-        _binding = LikedMoviesFragmentBinding.inflate(inflater, container, false)
-        return binding.root
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getData().observe(viewLifecycleOwner, { renderData(it) })
+        viewModel.getData().observe(viewLifecycleOwner) { renderData(it) }
+        bindAdapter()
+        viewModel.getLikedMoviesFromLocalSource()
+    }
+
+    private fun bindAdapter() {
         val controller = object : LikedMoviesFragmentAdapter.Controller {
             override fun onDeleteItemClick(entity: LikedMoviesEntity) {
                 viewModel.deleteNoteFromLocalRepository(entity)
@@ -47,12 +51,6 @@ class LikedMoviesFragment : Fragment() {
         adapter = LikedMoviesFragmentAdapter(controller)
         binding.likedMoviesRv.layoutManager = LinearLayoutManager(requireContext())
         binding.likedMoviesRv.adapter = adapter
-        viewModel.getLikedMoviesFromLocalSource()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
     }
 
 
@@ -64,7 +62,7 @@ class LikedMoviesFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.liked_movies_fragment__sort_by_rating -> {
                 viewModel.getSortedLikedMoviesByRating()
                 viewModel.switchSortingIcon(item)

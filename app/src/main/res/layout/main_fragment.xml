@@ -14,8 +14,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:text="Popular movies"
-            android:textSize="32dp"
+            android:text="@string/popular_movies_title"
+            android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewUp"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,8 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
-            android:text="Upcoming movies"
-            android:textSize="32dp"
+            android:text="@string/upcoming_movies_title"
+            android:textSize="32sp"
             app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewDown"
             app:layout_constraintTop_toBottomOf="@id/mainFragmentRecyclerViewUp" />
 
@@ -57,9 +57,9 @@
             android:id="@+id/loadingLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="visible">
+            app:layout_constraintTop_toTopOf="parent">
 
             <ProgressBar
                 style="?android:attr/progressBarStyleLarge"

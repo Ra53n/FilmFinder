@@ -25,18 +25,30 @@ class LikedMoviesViewModel(
         }.start()
     }
 
-    fun getSortedLikedMoviesByRating(){
-        Thread{
+    fun getSortedLikedMoviesByRating() {
+        Thread {
             liveDataToObserver.postValue(AppState.Loading)
             sortingAsc = !sortingAsc
             if (sortingAsc)
-            liveDataToObserver.postValue(AppState.Success(repositoryLikedMovies.getLikedMoviesSortedByRating(2)))
+                liveDataToObserver.postValue(
+                    AppState.Success(
+                        repositoryLikedMovies.getLikedMoviesSortedByRating(
+                            2
+                        )
+                    )
+                )
             else
-                liveDataToObserver.postValue(AppState.Success(repositoryLikedMovies.getLikedMoviesSortedByRating(1)))
+                liveDataToObserver.postValue(
+                    AppState.Success(
+                        repositoryLikedMovies.getLikedMoviesSortedByRating(
+                            1
+                        )
+                    )
+                )
         }.start()
     }
 
-    fun switchSortingIcon(menuItem: MenuItem){
+    fun switchSortingIcon(menuItem: MenuItem) {
         if (sortingAsc)
             menuItem.setIcon(R.drawable.ic_baseline_keyboard_arrow_up_24)
         else

@@ -4,13 +4,12 @@ import android.app.AlertDialog
 import android.os.Bundle
 import android.text.method.ScrollingMovementMethod
 import android.view.Gravity
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import by.kirich1409.viewbindingdelegate.viewBinding
 import coil.api.load
 import com.example.filmfinder.R
 import com.example.filmfinder.data.AppState
@@ -22,36 +21,32 @@ import com.example.filmfinder.viewModel.DetailsViewModel
 
 const val DETAILS_FRAGMENT_BUNDLE_KEY = "KEY"
 
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(R.layout.details_fragment) {
 
-    private var _binding: DetailsFragmentBinding? = null
-    private val binding get() = _binding!!
+    private val binding: DetailsFragmentBinding by viewBinding()
     private val viewModel: DetailsViewModel by lazy { ViewModelProvider(this)[DetailsViewModel::class.java] }
+
+    private var movieDTO: MovieDTO? = null
 
     companion object {
         fun newInstance(bundle: Bundle) = DetailsFragment().apply { arguments = bundle }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = DetailsFragmentBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getData().observe(viewLifecycleOwner, (Observer<AppState> { renderData(it) }))
-        val movieDTO = arguments?.getParcelable<MovieDTO>(DETAILS_FRAGMENT_BUNDLE_KEY)
+        this.movieDTO = arguments?.getParcelable<MovieDTO>(DETAILS_FRAGMENT_BUNDLE_KEY)
+        getMovie()
+        initListeners(view)
+    }
+
+    private fun getMovie() {
         movieDTO?.let {
             viewModel.getMoveFromRemoteSource(it.id)
         }
+    }
+
+    private fun initListeners(view: View) {
         view.setOnLongClickListener {
             val popupMenu = PopupMenu(context, it, Gravity.END)
             popupMenu.setOnMenuItemClickListener {
@@ -80,8 +75,10 @@ class DetailsFragment : Fragment() {
             movieDescription.movementMethod = ScrollingMovementMethod()
             movieYear.text = movieDTO.releaseDate.substring(0, 4)
             movieRating.text =
-                if (movieDTO.voteAverage != 0.0) movieDTO.voteAverage.toString() else "N/A"
-            movieImage.load("https://www.themoviedb.org/t/p/original" + movieDTO.posterPath)
+                if (movieDTO.voteAverage != 0.0) movieDTO.voteAverage.toString() else resources.getString(
+                    R.string.n_a
+                )
+            movieImage.load("${resources.getString(R.string.film_poster_endpoint)}${movieDTO.posterPath}")
         }
     }
 
@@ -103,11 +100,11 @@ class DetailsFragment : Fragment() {
     private fun onFailed() {
         AlertDialog.Builder(context).apply {
             setMessage(
-                "Something gone wrong!"
+                resources.getString(R.string.something_gone_wrong)
             )
 
             setNegativeButton(
-                "Back"
+                resources.getString(R.string.back)
             ) { _, _ -> parentFragmentManager.popBackStack() }
         }.create().show()
     }

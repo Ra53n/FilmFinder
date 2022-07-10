@@ -8,7 +8,7 @@ import android.content.Intent
 import androidx.core.app.NotificationCompat
 import com.example.filmfinder.R
 
-public class GeofenceBroadcastReceiver : BroadcastReceiver() {
+class GeofenceBroadcastReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         pushCinemaNotification(context)
     }
