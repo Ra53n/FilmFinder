@@ -1,7 +1,7 @@
 package com.example.filmfinder.data
 
 data class Movie(
-    val id:Long,
+    val id: Long,
     val title: String,
     val overview: String,
     val realiseDate: String,

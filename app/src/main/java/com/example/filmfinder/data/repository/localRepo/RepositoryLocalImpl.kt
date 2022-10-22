@@ -11,7 +11,7 @@ class RepositoryLocalImpl : RepositoryLocalLikedMovies, RepositoryLocalNotes {
             .map { convertLikedMovieToMovie(it) }
     }
 
-    override fun getLikedMoviesSortedByRating(isAsc:Int): List<Movie> {
+    override fun getLikedMoviesSortedByRating(isAsc: Int): List<Movie> {
         return App.getLikedMoviesDao().getAllMoviesSortedByRating(isAsc)
             .map { convertLikedMovieToMovie(it) }
     }

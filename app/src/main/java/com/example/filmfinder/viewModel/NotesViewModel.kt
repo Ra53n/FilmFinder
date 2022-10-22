@@ -20,7 +20,7 @@ class NotesViewModel(
         }.start()
     }
 
-    fun deleteNoteFromLocalRepository(entity: MovieNotesEntity){
+    fun deleteNoteFromLocalRepository(entity: MovieNotesEntity) {
         Thread {
             repositoryNotes.deleteNote(entity)
             liveDataToObserver.postValue(AppState.SuccessNotes(repositoryNotes.getAllNotes()))
