@@ -15,12 +15,4 @@
         android:id="@+id/menu_item__movie_notes"
         android:title="@string/notes_menu_item_title"
         app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_item__contacts"
-        android:title="@string/contacts_menu_item_title"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/menu_item__maps"
-        android:title="@string/cinemas_menu_item_title"
-        app:showAsAction="never" />
 </menu>

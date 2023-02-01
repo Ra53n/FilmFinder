@@ -17,7 +17,7 @@
         android:layout_height="match_parent">
 
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/note_add_fragment__linear_layout"
+            android:id="@+id/layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:orientation="vertical"
@@ -25,7 +25,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/note_add_fragment__title_tv"
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16sp"
@@ -42,12 +42,11 @@
                 android:orientation="horizontal">
 
                 <androidx.appcompat.widget.AppCompatImageView
-                    android:id="@+id/note_add_fragment__iv"
+                    android:id="@+id/image"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginStart="16sp"
-                    android:layout_weight="4"
-                    tools:src="@drawable/img" />
+                    android:layout_weight="4" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="0dp"
@@ -66,7 +65,7 @@
                         android:textStyle="bold" />
 
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/note_add_fragment__description_tv"
+                        android:id="@+id/description"
                         android:layout_width="wrap_content"
                         android:layout_height="0dp"
                         android:layout_marginStart="12sp"
@@ -79,7 +78,7 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/note_add_fragment__note_tv"
+                android:id="@+id/note"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -93,7 +92,7 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/note_add_fragment__add_button"
+                    android:id="@+id/addButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"
@@ -103,7 +102,7 @@
                     android:textColor="@color/black" />
 
                 <TextView
-                    android:id="@+id/note_add_fragment__date_tv"
+                    android:id="@+id/date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom"

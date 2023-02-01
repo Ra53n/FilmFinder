@@ -21,7 +21,7 @@
             android:value="${MAPS_API_KEY}" />
 
         <activity
-            android:name=".view.MainActivity"
+            android:name="com.example.filmfinder.presentation.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +30,9 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ConnectivityActionBroadcastReceiver" />
+        <receiver android:name=".presentation.broadcastReciever.ConnectivityActionBroadcastReceiver" />
         <receiver
-            android:name=".maps.GeofenceBroadcastReceiver"
+            android:name=".presentation.broadcastReciever.GeofenceBroadcastReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="android.permission.ACCESS_FINE_LOCATION" />

@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/liked_movies_fragment__sort_by_rating"
+        android:id="@+id/sortByRating"
         android:title="@string/sort_by_rating"
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/liked_movies_fragment__clear_filters"
+        android:id="@+id/clearFilters"
         android:title="@string/clear"
         android:visible="false"
         app:showAsAction="always" />

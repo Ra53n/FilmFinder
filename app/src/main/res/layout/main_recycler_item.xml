@@ -20,7 +20,7 @@
             android:layout_weight="10">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/main_recycler_item_movie_like_image_view"
+                android:id="@+id/like"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_alignParentEnd="true"
@@ -29,7 +29,7 @@
 
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/main_recycler_item_movie_image_view"
+                android:id="@+id/movieImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -38,7 +38,7 @@
 
 
         <TextView
-            android:id="@+id/main_recycler_item_movie_name_textview"
+            android:id="@+id/movieTitle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="3"
@@ -52,7 +52,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/main_recycler_item_movie_year"
+                android:id="@+id/movieYear"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -60,7 +60,7 @@
                 android:textAlignment="center" />
 
             <TextView
-                android:id="@+id/main_recycler_item_movie_rating"
+                android:id="@+id/movieRating"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

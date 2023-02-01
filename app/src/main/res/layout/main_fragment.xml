@@ -10,48 +10,48 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/popular_movies_textview"
+            android:id="@+id/popularMoviesTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:text="@string/popular_movies_title"
             android:textSize="32sp"
-            app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewUp"
+            app:layout_constraintBottom_toTopOf="@id/popularMoviesRecyclerView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainFragmentRecyclerViewUp"
+            android:id="@+id/popularMoviesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:layout_margin="6dp"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@+id/upcoming_movies_textview"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/upcomingMoviesTitle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/popular_movies_textview"
-            app:reverseLayout="true" />
+            app:layout_constraintTop_toBottomOf="@+id/popularMoviesTitle" />
 
         <TextView
-            android:id="@+id/upcoming_movies_textview"
+            android:id="@+id/upcomingMoviesTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:text="@string/upcoming_movies_title"
             android:textSize="32sp"
-            app:layout_constraintBottom_toTopOf="@id/mainFragmentRecyclerViewDown"
-            app:layout_constraintTop_toBottomOf="@id/mainFragmentRecyclerViewUp" />
+            app:layout_constraintBottom_toTopOf="@id/upcomingMoviesRecyclerView"
+            app:layout_constraintTop_toBottomOf="@id/popularMoviesRecyclerView" />
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/mainFragmentRecyclerViewDown"
+            android:id="@+id/upcomingMoviesRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="260dp"
             android:layout_margin="6dp"
             android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/upcoming_movies_textview"
-            app:reverseLayout="true" />
+            app:layout_constraintTop_toBottomOf="@+id/upcomingMoviesTitle" />
 
         <FrameLayout
             android:id="@+id/loadingLayout"
